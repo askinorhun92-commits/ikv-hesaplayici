@@ -171,7 +171,9 @@
 
   .modal-back { position: fixed; inset: 0; background: rgba(20, 30, 50, .45); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 16px; }
   .modal-back[hidden] { display: none; }
-  .modal { background: var(--bg); color: var(--ink); border-radius: 8px; max-width: 640px; width: 100%; padding: 18px 20px; box-shadow: 0 10px 40px rgba(0,0,0,.25); max-height: 90vh; overflow: auto; }
+  .kul-table input { width: 100%; min-width: 110px; padding: 5px 7px; border: 1px solid #c9d3e2; border-radius: 3px; background: #fffef5; text-align: right; font-variant-numeric: tabular-nums; }
+  .kul-table th { font-size: 12.5px; }
+  .modal { background: var(--bg); color: var(--ink); border-radius: 8px; max-width: 860px; width: 100%; padding: 18px 20px; box-shadow: 0 10px 40px rgba(0,0,0,.25); max-height: 90vh; overflow: auto; }
   .modal h3 { margin: 0 0 10px; }
   .modal p { margin: 0 0 10px; line-height: 1.45; }
   .modal textarea { width: 100%; min-height: 180px; font-family: Consolas, "Courier New", monospace; font-size: 12px; border: 1px solid var(--line); border-radius: 4px; padding: 8px; background: var(--panel); color: var(--ink); }
@@ -239,6 +241,16 @@
     <h2>İndirimli kurumlar vergisi nasıl hesaplanır?</h2>
     <p class="lead">Kurumlar vergisi teşviki içeren bir yatırım teşvik belgeniz varsa, belge kapsamındaki yatırım harcamanız üzerinden bir <b>yatırıma katkı tutarı (YKT)</b> doğar. Devlet bu tutar kadar vergiyi sizden tahsil etmez. Bu araç, YKT'nin bu dönem ne kadarının kullanılacağını ve ödenecek kurumlar vergisini adım adım hesaplar.</p>
 
+    <div class="card soft">
+      <h3 style="margin-top:0">Hızlı başlangıç</h3>
+      <ol class="defs">
+        <li>Üstteki <b>Yeni</b> düğmesiyle örnek verileri temizleyin.</li>
+        <li><b>Genel bilgiler</b> sekmesinde hesap yılını, ticari kârı, matrahı, brüt sabit kıymeti ve kazanç dağılımını girin.</li>
+        <li><b>Teşvik belgeleri</b> sekmesinde her belge için bir sütun doldurun. Belge tarihi, harcamalar, oranlar ve <b>önceki dönemlerde yıl yıl kullanılan YKT</b> zorunludur.</li>
+        <li><b>Sonuç</b> sekmesinde ödenecek vergiyi, kullanılan ve devreden YKT'yi ve asgari KV mahsubunu görün. Kırmızı uyarı varsa önce onu giderin.</li>
+      </ol>
+    </div>
+
     <div class="callout">Tüm veriler yalnızca bu tarayıcıda işlenir. Hiçbir yere gönderilmez. Açılışta <b>sentetik (uydurma) örnek veriler</b> gösterilir. Kendi hesabınız için üstteki <b>Yeni</b> düğmesine basın, verilerinizi saklamak için <b>Kaydet / Yükle</b> düğmesini kullanın.</div>
 
     <h3>Hesaplama akışı</h3>
@@ -260,7 +272,7 @@
           <li>2017-2022 yıllarında (dahil) yapılan harcamalar için YKO'ya <b>%15 ilave</b> edilir.</li>
           <li>YKT, belge kapsamında yararlanılacak vergi avantajının <b>tavanıdır</b>.</li>
           <li>Bir yılda bu tavanın ne kadarının kullanılacağını, belgeden elde edilen <b>kazanç</b> belirler.</li>
-          <li><b>Komple yeni yatırımda</b> kazanç ayrı hesaplarda izlenir. <b>Tevsi yatırımda</b> kazanç = (yatırım harcaması ÷ toplam sabit kıymet) × ticari bilanço kârı.</li>
+          <li><b>Komple yeni yatırımda</b> kazanç ayrı hesaplarda izlenir. <b>Tevsi yatırımda</b> kazanç = (yatırım harcaması ÷ dönem sonu toplam sabit kıymet) × ticari bilanço kârı. Toplam sabit kıymet: amortismana tabi tüm kıymetlerin brüt tutarı, devam eden yatırımlar dahil, arsa ve arazi hariç, enflasyon düzeltmeli değerle. Birden fazla tevsi yatırımda yalnız ilgili tesisin değil, kurumun tüm sabit kıymetleri alınır.</li>
           <li>Kazanca indirimli oran uygulanır. İndirimli vergi ile normal vergi arasındaki fark o dönem kullanılan YKT'dir.</li>
           <li>Dönemler: <b>yatırım dönemi</b> (henüz kazanç yok), <b>kısmi işletme dönemi</b> (yatırım sürerken kısmen üretim ve kazanç var), <b>işletme dönemi</b> (yatırım tamamlandı).</li>
         </ol>
@@ -274,8 +286,37 @@
           <li>İşletme dönemi sonrasında hâlâ matrah varsa, dönemde <b>açık</b> olan belgeler için yatırım dönemi hesabı yapılır.</li>
           <li>Yatırım dönemi hesabı, yatırım dışı (diğer faaliyet) kazançlara indirimli oran uygulanmasıdır.</li>
           <li>Yatırım döneminde hangi belgeden başlanacağı <b>ihtiyaridir</b>. Bu araçta sıra, Teşvik belgeleri sekmesindeki sütun sırasıdır (← → düğmeleri).</li>
+          <li>Belgedeki sabit yatırım tutarı fiili harcamadan düşükse, YKT belgedeki tutar üzerinden hesaplanır.</li>
+          <li>02.08.2024 öncesi alınan belgelerde, o tarihteki sabit yatırım tutarı üzerinden hesaplanan YKT kadar alınmayan vergi <b>asgari kurumlar vergisinden mahsup</b> edilebilir. Sonraki revizyon artışları dahil edilmez. 02.08.2024 ve sonrası alınan belgelerde mahsup yapılamaz.</li>
+          <li>Önceki dönemlerde kullanılan YKT hesabı birçok noktada etkiler. Bu nedenle <b>yıllar itibarıyla</b> girilmesi zorunludur.</li>
         </ol>
       </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top:0">2025 değişikliği: 7555 sayılı Kanun</h3>
+      <p class="note" style="margin-top:0">Uygulama her belgenin hangi hükümlere tabi olduğunu belge ve başvuru tarihine göre otomatik belirler.</p>
+      <div class="grid2">
+        <div>
+          <b>Hangi belgeler yeni hükümlere tabi?</b>
+          <ul class="defs">
+            <li>24.07.2025 ve sonrasında alınan belgeler yeni hükümlere tabidir.</li>
+            <li>İstisna: başvurusu 16.06.2025 öncesinde yapılmış ve reddedilmemiş belgeler eski hükümlere tabidir.</li>
+            <li>Örnek: 11.06.2025 başvuru, 18.08.2025 belge → eski. 23.06.2025 başvuru, 17.07.2025 belge → eski. 27.06.2025 başvuru, 13.08.2025 belge → yeni.</li>
+          </ul>
+        </div>
+        <div>
+          <b>Yeni hükümler</b>
+          <ul class="defs">
+            <li>Vergi indirim oranı <b>%60</b>.</li>
+            <li>İndirim hakkının kullanılabildiği ilk dönem dahil en fazla <b>10 hesap dönemi</b>. Süre sonunda kalan YKT kullanılamaz. Süre her belge için ayrı izlenir.</li>
+            <li>Diğer faaliyet kazançlarına uygulama yalnızca yatırıma başlanılan dönem dahil <b>ilk 4 dönemde</b>, toplam YKT'nin <b>%50</b>'si kadar ve hak edilen YKT'yi aşmamak üzere yapılabilir.</li>
+            <li>Kazanç bulunmasına rağmen kullanılmayan YKT sonraki dönemlere devretmez.</li>
+            <li>İşletme dönemi hesaplama yönteminde değişiklik yoktur.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="note">Eski hükümlerde diğer faaliyet kazançlarına uygulama: toplam YKT'nin %80'i (2017-2022 harcamaları için %100'ü), toplam fiili yatırım harcamasını aşmamak üzere.</p>
     </div>
 
     <div class="card">
@@ -5331,6 +5372,22 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
   const dmin = (a, b) => (a.lt(b) ? a : b);
   const pos = (a) => (a.lt(0) ? ZERO : a);
   const div = (a, b) => (b.isZero() ? ZERO : a.div(b));
+  // 'gg.aa.yyyy', 'yyyy-aa-gg' veya Excel seri numarası → yyyymmdd sayısı
+  function parseDate(v) {
+    if (isBlank(v)) return 0;
+    const s = String(v).trim();
+    let m = s.match(/^(\d{1,2})[./-](\d{1,2})[./-](\d{4})$/);
+    if (m) return +m[3] * 10000 + +m[2] * 100 + +m[1];
+    m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+    if (m) return +m[1] * 10000 + +m[2] * 100 + +m[3];
+    if (/^\d{5}$/.test(s)) {
+      const d = new Date(Date.UTC(1899, 11, 30) + (+s) * 86400000);
+      return d.getUTCFullYear() * 10000 + (d.getUTCMonth() + 1) * 100 + d.getUTCDate();
+    }
+    if (/^\d{4}$/.test(s)) return +s * 10000 + 101;
+    return 0;
+  }
+  const parseYear = (v) => Math.floor(parseDate(v) / 10000);
   const fmtTR = (d) => {
     const [i, f] = d.toFixed(2).split('.');
     return i.replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',' + f;
@@ -5354,6 +5411,9 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     const KI = D(g.ihracatKazanc);
     const KD = TK.minus(KU).minus(KI);
     const L = { u: D(g.oranUretim), i: D(g.oranIhracat), d: D(g.oranGenel) };
+    const hesapYili = parseInt(g.hesapYili, 10) || 0;
+    const cbOrani = isBlank(g.cbOrani) ? new Decimal('0.5') : D(g.cbOrani);
+    if (!hesapYili) warn('uyari', 'Hesap dönemi (yıl) girilmedi. 7555 sayılı Kanun kapsamındaki on dönem ve dört dönem sınırları kontrol edilemez.');
 
     const share = {
       u: KU.lte(0) ? ZERO : div(KU, TK),
@@ -5376,7 +5436,7 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     const genel = {
       ticariKar: TK, matrah: M, brutSK: BSK,
       uretimKazanc: KU, ihracatKazanc: KI, digerKazanc: KD,
-      oran: L, pay: share,
+      oran: L, pay: share, hesapYili, cbOrani,
       matrahUretim: mU, matrahIhracat: mI, matrahDiger: mD,
       karmaOran: blended,
     };
@@ -5402,11 +5462,64 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
       const ilave = isBlank(b.ilaveYko) ? new Decimal('0.15') : D(b.ilaveYko);
       const dYko = isBlank(b.digerYko) ? new Decimal('0.8') : D(b.digerYko);
       const dYko1722 = isBlank(b.digerYko1722) ? ONE : D(b.digerYko1722);
-      const vio = D(b.vergiIndirim);
       const vio1722 = isBlank(b.vergiIndirim1722) ? ONE : D(b.vergiIndirim1722);
       const endeksYkt = D(b.endeksYkt);
-      const prevB = D(b.oncekiKullanilanDiger);
-      const prevA = D(b.oncekiKullanilan1722);
+
+      // Önceki dönemlerde kullanılan YKT: yıllar itibarıyla tablo (kural 10). Eski kayıtlar için toplam alanlar da okunur.
+      const kullanimlar = Array.isArray(b.kullanimlar)
+        ? b.kullanimlar.filter((k) => k && (!isBlank(k.yil) || !isBlank(k.a) || !isBlank(k.b) || !isBlank(k.df)))
+        : [];
+      let prevA, prevB, prevDF;
+      if (kullanimlar.length) {
+        prevA = kullanimlar.reduce((s, k) => s.plus(D(k.a)), ZERO);
+        prevB = kullanimlar.reduce((s, k) => s.plus(D(k.b)), ZERO);
+        prevDF = kullanimlar.reduce((s, k) => s.plus(D(k.df)), ZERO);
+      } else {
+        prevA = D(b.oncekiKullanilan1722);
+        prevB = D(b.oncekiKullanilanDiger);
+        prevDF = D(b.oncekiKullanilanDF);
+      }
+      const kullanimGirildi = kullanimlar.length > 0 || b.oncekiKullanimYok === true ||
+        !isBlank(b.oncekiKullanilan1722) || !isBlank(b.oncekiKullanilanDiger);
+      const kullanimYillari = kullanimlar.map((k) => parseInt(k.yil, 10)).filter((y) => y > 1990);
+
+      // 7555 sayılı Kanun kontrolü: 24.07.2025 ve sonrası alınan belgeler (16.06.2025 öncesi başvurular hariç) yeni hükümlere tabidir.
+      const belgeT = parseDate(b.belgeTarihi);
+      const basvuruT = parseDate(b.basvuruTarihi);
+      let yeniHukum;
+      let hukumKaynak;
+      if (b.hukum === 'yeni' || b.hukum === 'eski') {
+        yeniHukum = b.hukum === 'yeni';
+        hukumKaynak = 'Kullanıcı seçimi';
+      } else if (belgeT) {
+        const once1606 = basvuruT && basvuruT < 20250616;
+        yeniHukum = belgeT >= 20250724 && !once1606;
+        hukumKaynak = belgeT < 20250724
+          ? 'Belge 24.07.2025 öncesinde alınmış'
+          : once1606 ? 'Başvuru 16.06.2025 öncesinde yapılmış' : 'Belge 24.07.2025 ve sonrasında alınmış, başvuru 16.06.2025 veya sonrası';
+        if (belgeT >= 20250724 && !basvuruT) warn('uyari', 'Belge 24.07.2025 sonrasında alınmış ancak başvuru tarihi girilmemiş. Başvuru 16.06.2025 öncesindeyse 7555 öncesi hükümler geçerlidir, kontrol edin.', ad);
+      } else {
+        yeniHukum = false;
+        hukumKaynak = 'Belge tarihi girilmedi, 7555 öncesi hükümler varsayıldı';
+        warn('uyari', 'Teşvik belgesi tarihi girilmedi. 7555 sayılı Kanun öncesi hükümler varsayıldı.', ad);
+      }
+      const vio = isBlank(b.vergiIndirim) && yeniHukum ? new Decimal('0.6') : D(b.vergiIndirim);
+      if (yeniHukum && !isBlank(b.vergiIndirim) && !vio.eq('0.6')) warn('uyari', 'Yeni hükümlere tabi belgelerde vergi indirim oranı %60\'tır. Girilen oran farklı.', ad);
+
+      // On hesap dönemi sınırı (yeni hükümler): indirim hakkının kullanılabildiği ilk dönem dahil en fazla 10 dönem
+      const ilkYil = parseInt(b.ilkIndirimYili, 10) || (kullanimYillari.length ? Math.min(...kullanimYillari) : hesapYili);
+      const donemNo = hesapYili && ilkYil ? hesapYili - ilkYil + 1 : 0;
+      const sureDoldu = yeniHukum && donemNo > 10;
+      // Dört hesap dönemi (yeni hükümler, diğer faaliyet kazançları): yatırıma fiilen başlanılan dönem dahil 4 dönem
+      const basYil = parseYear(b.baslangic);
+      const dfSonYil = basYil ? basYil + 3 : 0;
+      const dfPencereAcik = !yeniHukum || !hesapYili || !basYil || hesapYili <= dfSonYil;
+      if (yeniHukum && !basYil) warn('uyari', 'Yatırım başlangıç tarihi girilmedi. Diğer faaliyet kazançları için dört dönem sınırı kontrol edilemedi.', ad);
+      if (sureDoldu) warn('hata', `7555 sayılı Kanun: on hesap dönemi sınırı doldu (ilk dönem ${ilkYil}, bu dönem ${donemNo}. dönem). Bu belge için indirimli vergi uygulanamaz, kalan YKT kullanılamaz.`, ad);
+      if (yeniHukum && !dfPencereAcik && acik) warn('bilgi', `7555 sayılı Kanun: dört dönem (${basYil}-${dfSonYil}) geçtiği için diğer faaliyet kazançlarına (yatırım dönemi) YKT uygulanmaz.`, ad);
+      if (!kullanimGirildi) warn('hata', 'Önceki dönemlerde kullanılan YKT bilgisi girilmedi. Yıllar itibarıyla kullanılan tutarları girin veya "Önceki dönemde kullanım yok" seçeneğini işaretleyin.', ad);
+      if (kullanimlar.some((k) => !(parseInt(k.yil, 10) > 1990))) warn('uyari', 'Önceki dönem kullanım tablosunda yılı girilmemiş satır var.', ad);
+      if (prevDF.gt(prevA.plus(prevB))) warn('uyari', 'Diğer faaliyet kazançlarına uygulanan önceki dönem YKT\'si, toplam önceki dönem kullanımından büyük.', ad);
 
       const toplamYKT = sytE.minus(h1).mul(yko).plus(h1.mul(yko.plus(ilave)));         // satır 18
       const hakYKT = h0.mul(yko).plus(h1.mul(yko.plus(ilave))).plus(h2.mul(yko));      // satır 19
@@ -5424,20 +5537,35 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
       }
       // Düzeltilmiş mod, kural 2: endeksleme nedeniyle hak kazanılan YKT kalan YKT'ye (B havuzu) eklenir.
       const endeksEklenen = excel ? ZERO : endeksYkt;
-      const dfSinir = acik ? dmin(yktA.plus(yktB.mul(dYko)), hT) : ZERO;                 // satır 26
-      const dfYKT = acik
-        ? dmin(sytE.minus(h1).mul(yko).mul(dYko).plus(h1.mul(yko.plus(ilave)).mul(dYko1722)), dfSinir)
-        : ZERO;                                                                          // satır 27
-      const dfB = acik ? dmin(sytE.minus(h1).mul(yko).mul(dYko), hT.minus(h1)) : ZERO;   // satır 28
-      const dfA = acik ? h1.mul(yko.plus(ilave)).mul(dYko1722) : ZERO;                   // satır 29
       let kalanB = yktB.plus(endeksEklenen).minus(prevB);                                // satır 35
       let kalanA = yktA.minus(prevA);                                                    // satır 36
-      let dfKalanB = dfYKT.gt(0) ? dfB.minus(prevB) : ZERO;                              // satır 38
-      let dfKalanA = dfYKT.gt(0) ? dfA.minus(prevA) : ZERO;                              // satır 39
-      if (!excel) {
-        kalanA = pos(kalanA); kalanB = pos(kalanB);
-        dfKalanA = pos(dfKalanA); dfKalanB = pos(dfKalanB);
+      if (!excel) { kalanA = pos(kalanA); kalanB = pos(kalanB); }
+      let dfSinir, dfYKT, dfB, dfA, dfKalanA, dfKalanB;
+      if (yeniHukum) {
+        // 7555 sonrası: ilk 4 dönemde, toplam YKT'nin CB kararıyla belirlenen oranı (%50) kadar, hak edilen YKT'yi aşmamak üzere
+        const hakEsas = yktA.plus(yktB).plus(endeksEklenen);
+        const ac = acik && dfPencereAcik;
+        dfSinir = ac ? dmin(pos(toplamYKT).mul(cbOrani), hakEsas) : ZERO;
+        dfYKT = dfSinir; dfA = ZERO; dfB = dfSinir;
+        dfKalanA = ZERO;
+        dfKalanB = ac ? pos(dmin(dfSinir.minus(prevDF), kalanA.plus(kalanB))) : ZERO;
+      } else {
+        dfSinir = acik ? dmin(yktA.plus(yktB.mul(dYko)), hT) : ZERO;                     // satır 26
+        dfYKT = acik
+          ? dmin(sytE.minus(h1).mul(yko).mul(dYko).plus(h1.mul(yko.plus(ilave)).mul(dYko1722)), dfSinir)
+          : ZERO;                                                                        // satır 27
+        dfB = acik ? dmin(sytE.minus(h1).mul(yko).mul(dYko), hT.minus(h1)) : ZERO;       // satır 28
+        dfA = acik ? h1.mul(yko.plus(ilave)).mul(dYko1722) : ZERO;                       // satır 29
+        dfKalanB = dfYKT.gt(0) ? dfB.minus(prevB) : ZERO;                                // satır 38
+        dfKalanA = dfYKT.gt(0) ? dfA.minus(prevA) : ZERO;                                // satır 39
+        if (!excel) { dfKalanA = pos(dfKalanA); dfKalanB = pos(dfKalanB); }
       }
+
+      // Asgari kurumlar vergisi (kural 8-9): 02.08.2024 öncesi alınan belgelerde, o tarihteki SYT üzerinden hesaplanan YKT
+      const once0208 = belgeT ? belgeT < 20240802 : D(b.syt0208Oncesi).gt(0);
+      const syt0208 = isBlank(b.syt0208Oncesi) ? syt : D(b.syt0208Oncesi);
+      const akvYKT = once0208 ? syt0208.minus(h1).mul(yko).plus(h1.mul(yko.plus(ilave))) : ZERO;  // satır 219
+      const akvKalan = once0208 ? pos(akvYKT.minus(prevA.plus(prevB))) : ZERO;                      // satır 221
 
       // Uyarılar
       if (!acik && donem === DONEM.YATIRIM) warn('uyari', 'Kapalı bir belge "Yatırım Dönemi" olarak işaretlenmiş. Kapalı belgelerde yatırım tamamlanmıştır.', ad);
@@ -5457,7 +5585,10 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
         yko, ilave, dYko, dYko1722, vio, vio1722,
         toplamYKT, hakYKT, endeksYkt, endeksEklenen, hakToplam: hakYKT.plus(endeksYkt),
         yktAHam, yktBHam, tavanAsimi, tavanUygulandi,
-        yktA, yktB, dfSinir, dfYKT, dfA, dfB, prevA, prevB,
+        yktA, yktB, dfSinir, dfYKT, dfA, dfB, prevA, prevB, prevDF,
+        kullanimlar, kullanimGirildi,
+        yeniHukum, hukumKaynak, ilkYil, donemNo, sureDoldu, basYil, dfSonYil, dfPencereAcik,
+        once0208, akvYKT, akvKalan,
         kalanA, kalanB, kalan: kalanA.plus(kalanB),
         dfKalanA, dfKalanB, dfKalan: dfKalanA.plus(dfKalanB),
         isletme: null, yatirim: { A: null, B: null },
@@ -5520,6 +5651,7 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
 
     list.forEach((b) => {
       const uygun = b.donem === DONEM.KISMI || b.donem === DONEM.ISLETME;
+      if (b.sureDoldu) { b.isletme = { aktif: false, sebep: '7555 sayılı Kanun: on hesap dönemi sınırı doldu.' }; return; }
       if (!uygun) { b.isletme = { aktif: false, sebep: 'Belge yatırım döneminde, yatırımdan kazanç elde edilmiyor.' }; return; }
       if (b.kalan.lte(0)) { b.isletme = { aktif: false, sebep: 'Belgenin kalan YKT tutarı yok.' }; return; }
       if (TK.lte(0) || BSK.lte(0)) { b.isletme = { aktif: false, sebep: 'Ticari kâr veya brüt sabit kıymet eksik.' }; return; }
@@ -5587,19 +5719,28 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
       p.matrahToplam = dmin(p.gerekliMatrah, kalanMatrah);
       p.sinirlandi = p.gerekliMatrah.gt(kalanMatrah);
       p.matrah = splitBy(p.matrahToplam);
-      // Excel satır 179 ve 202: üretim vergisi "diğer" matrah üzerinden hesaplanıyor (hata), excel modunda korunur
-      p.vergi = excel
-        ? p.matrah.d.mul(r.u).plus(p.matrah.i.mul(r.i)).plus(p.matrah.d.mul(r.d))
-        : taxOf(p.matrah, r);
+      if (excel && tip === 'A') {
+        // Excel V2 (güncel) satır 176-179: üretim ve diğer matrahı, YKT'yi tüketecek tutarlardan alınır; vergi doğru matrahtan
+        const yk = splitBy(p.ykt);
+        p.matrah = { u: div(yk.u, L.u), i: p.matrah.i, d: div(yk.d, L.d) };
+        p.vergi = taxOf(p.matrah, r);
+      } else if (excel) {
+        // Excel satır 202: üretim vergisi "diğer" matrah üzerinden hesaplanıyor (hata), excel modunda korunur
+        p.vergi = p.matrah.d.mul(r.u).plus(p.matrah.i.mul(r.i)).plus(p.matrah.d.mul(r.d));
+      } else {
+        p.vergi = taxOf(p.matrah, r);
+      }
       p.fayda = fullTaxOf(p.matrah).minus(p.vergi);
       kalanMatrah = pos(kalanMatrah.minus(p.matrahToplam));
       p.kalanMatrahSonra = kalanMatrah;
       return p;
     }
 
-    const yatirimAday = (b) => b.acik && b.dfYKT.gt(0) && b.kaynak.yatirimDonemiHesapla !== false;
+    const yatirimAday = (b) => b.acik && !b.sureDoldu && b.dfYKT.gt(0) && b.kaynak.yatirimDonemiHesapla !== false;
     list.forEach((b) => {
-      if (!b.acik) b.yatirimSebep = 'Belge kapalı, yatırım dönemi hesaplaması yapılmaz.';
+      if (b.sureDoldu) b.yatirimSebep = '7555 sayılı Kanun: on hesap dönemi sınırı doldu.';
+      else if (!b.acik) b.yatirimSebep = 'Belge kapalı, yatırım dönemi hesaplaması yapılmaz.';
+      else if (b.yeniHukum && !b.dfPencereAcik) b.yatirimSebep = `7555 sayılı Kanun: diğer faaliyet kazançlarına uygulama yalnızca ilk dört dönemde (${b.basYil}-${b.dfSonYil}) yapılabilir.`;
       else if (b.dfYKT.lte(0)) b.yatirimSebep = 'Diğer faaliyetlere uygulanabilir YKT yok.';
       else if (b.kaynak.yatirimDonemiHesapla === false) b.yatirimSebep = 'Kullanıcı tercihi: bu belge için yatırım dönemi hesaplaması yapılmıyor.';
     });
@@ -5652,6 +5793,16 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
 
     const indirimliMatrah = topIslMatrah.plus(topYatMatrah);
     const normalMatrah = pos(M.minus(indirimliMatrah));
+
+    // Asgari KV mahsubu ve yeni hükümlerde yanan YKT uyarısı
+    let akvMahsup = ZERO;
+    list.forEach((b) => {
+      b.ozet.akvMahsup = b.once0208 ? dmin(b.ozet.fayda, b.akvKalan) : ZERO;
+      akvMahsup = akvMahsup.plus(b.ozet.akvMahsup);
+      if (b.yeniHukum && b.acik && !b.sureDoldu && b.dfKalan.gt(0) && b.kaynak.yatirimDonemiHesapla === false && normalMatrah.gt(0)) {
+        warn('uyari', '7555 sayılı Kanun: kazanç bulunmasına rağmen yararlanılmayan YKT sonraki dönemlerde kullanılamaz. Bu belge için yatırım dönemi hesabı kapalı ve genel oranla vergilenen matrah var.', b.ad);
+      }
+    });
     const tesviksizVergi = mU.mul(L.u).plus(mI.mul(L.i)).plus(mD.mul(L.d));
     const toplamFayda = topIslFayda.plus(topYatFayda);
     const odenecekVergi = tesviksizVergi.minus(toplamFayda);
@@ -5670,6 +5821,7 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
         efektifOran: div(odenecekVergi, M),
         kalanMatrahYatirimOncesi: kalanMatrahBaslangic,
         isletmeOlcek: olcek,
+        akvMahsup,
       },
       warnings,
     };
@@ -5691,11 +5843,11 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     },
     {
       baslik: 'Yatırım döneminde üretim vergisinin yanlış matrahtan hesaplanması',
-      detay: 'Excel satır 179 ve 202\'de "Üretim İçin Hesaplanan Vergi" diğer faaliyet matrahı ile çarpılıyor. Düzeltilmiş modda üretim matrahı ile çarpılır.',
+      detay: 'Excel satır 202\'de (2017 öncesi ve 2023 sonrası harcamalar) "Üretim İçin Hesaplanan Vergi" diğer faaliyet matrahı ile çarpılıyor. Satır 179 güncel Excel\'de düzeltildi. Düzeltilmiş modda her iki adımda üretim matrahı ile çarpılır.',
     },
     {
       baslik: 'Yatırım döneminde YKT\'yi tüketecek matrahın hesabı',
-      detay: 'Excel her kazanç türünün YKT payını o türün tam oranına bölüp topluyor. Ardından matrahı tekrar paylara böldüğü için kullanılan YKT, mevcut YKT\'yi küçük bir tutar aşabiliyor. Düzeltilmiş modda matrah, YKT ÷ (vergi indirim oranı × ağırlıklı vergi oranı) ile bulunur ve YKT tam olarak tüketilir.',
+      detay: 'Excel her kazanç türünün YKT payını o türün tam oranına bölüp topluyor. Satır 199-201\'de matrahı tekrar paylara böldüğü için kullanılan YKT ile mevcut YKT arasında fark oluşabiliyor (satır 176-178 güncel Excel\'de bu nedenle değiştirildi). Düzeltilmiş modda matrah, YKT ÷ (vergi indirim oranı × ağırlıklı vergi oranı) ile bulunur ve YKT tam olarak tüketilir.',
     },
     {
       baslik: 'İşletme dönemi aşım kontrolü',
@@ -5817,38 +5969,45 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     return Object.assign({
       id: 'b' + (uid++) + '_' + Date.now().toString(36),
       belgeNo: '', baslangic: '', bitis: '', durum: DURUM.ACIK, donem: DONEM.YATIRIM, yatirimDonemiHesapla: true,
+      belgeTarihi: '', basvuruTarihi: '', hukum: '', ilkIndirimYili: '',
       syt: '', syt0208Oncesi: '', syt0208Sonrasi: '',
       h2017Oncesi: '', h2017_2022: '', h2023Sonrasi: '',
       enf2017Oncesi: '', enf2017_2022: '', enf2023Sonrasi: '',
       yko: '', ilaveYko: '0.15',
       vergiIndirim: '', vergiIndirim1722: '1', digerYko: '0.8', digerYko1722: '1',
-      oncekiKullanilanDiger: '', oncekiKullanilan1722: '', endeksYkt: '',
+      endeksYkt: '',
+      kullanimlar: [], oncekiKullanimYok: false,
     }, over || {});
   }
   function emptyState() {
     return {
       donemAdi: '', mode: 'duzeltilmis',
-      genel: { ticariKar: '', matrah: '', brutSK: '', uretimKazanc: '', ihracatKazanc: '', oranGenel: '0.25', oranUretim: '0.24', oranIhracat: '0.2' },
+      genel: { hesapYili: String(new Date().getFullYear() - 1), ticariKar: '', matrah: '', brutSK: '', uretimKazanc: '', ihracatKazanc: '', oranGenel: '0.25', oranUretim: '0.24', oranIhracat: '0.2', cbOrani: '0.5' },
       belgeler: [newBelge()],
     };
   }
+  const kul = (yil, a, b, df) => ({ yil: String(yil), a: String(a), b: String(b), df: String(df || '0') });
   // Sentetik örnek: gerçek şirket verisi değildir, yalnızca kullanımı göstermek içindir.
   function sampleState() {
     return {
       donemAdi: '2025 (sentetik örnek)', mode: 'duzeltilmis', ornek: true,
-      genel: { ticariKar: '1200000000', matrah: '620000000', brutSK: '3000000000', uretimKazanc: '450000000', ihracatKazanc: '150000000', oranGenel: '0.25', oranUretim: '0.24', oranIhracat: '0.2' },
+      genel: { hesapYili: '2025', ticariKar: '1200000000', matrah: '620000000', brutSK: '3000000000', uretimKazanc: '450000000', ihracatKazanc: '150000000', oranGenel: '0.25', oranUretim: '0.24', oranIhracat: '0.2', cbOrani: '0.5' },
       belgeler: [
+        newBelge({ belgeNo: 'TB-1003', baslangic: '01.10.2025', bitis: '', durum: DURUM.ACIK, donem: DONEM.YATIRIM,
+          belgeTarihi: '10.09.2025', basvuruTarihi: '20.06.2025',
+          syt: '200000000', syt0208Oncesi: '0', syt0208Sonrasi: '200000000',
+          h2017Oncesi: '0', h2017_2022: '0', h2023Sonrasi: '80000000', yko: '0.4', vergiIndirim: '0.6',
+          oncekiKullanimYok: true }),
         newBelge({ belgeNo: 'TB-1001', baslangic: '15.03.2021', bitis: '', durum: DURUM.ACIK, donem: DONEM.KISMI,
+          belgeTarihi: '01.02.2021', basvuruTarihi: '10.12.2020',
           syt: '400000000', syt0208Oncesi: '400000000', syt0208Sonrasi: '400000000',
           h2017Oncesi: '0', h2017_2022: '40000000', h2023Sonrasi: '350000000', yko: '0.4', vergiIndirim: '0.8',
-          oncekiKullanilanDiger: '10000000', oncekiKullanilan1722: '1000000' }),
+          kullanimlar: [kul(2023, 400000, 4000000, 4400000), kul(2024, 600000, 6000000, 3000000)] }),
         newBelge({ belgeNo: 'TB-1002', baslangic: '01.06.2020', bitis: '30.12.2024', durum: DURUM.KAPALI, donem: DONEM.ISLETME,
+          belgeTarihi: '15.05.2020', basvuruTarihi: '02.03.2020',
           syt: '110000000', syt0208Oncesi: '110000000', syt0208Sonrasi: '110000000',
           h2017Oncesi: '0', h2017_2022: '15000000', h2023Sonrasi: '90000000', yko: '0.3', vergiIndirim: '0.7',
-          oncekiKullanilanDiger: '4000000', oncekiKullanilan1722: '300000' }),
-        newBelge({ belgeNo: 'TB-1003', baslangic: '10.02.2025', bitis: '', durum: DURUM.ACIK, donem: DONEM.YATIRIM,
-          syt: '200000000', syt0208Oncesi: '0', syt0208Sonrasi: '200000000',
-          h2017Oncesi: '0', h2017_2022: '0', h2023Sonrasi: '80000000', yko: '0.4', vergiIndirim: '0.8' }),
+          kullanimlar: [kul(2023, 100000, 1500000, 0), kul(2024, 200000, 2500000, 0)] }),
       ],
     };
   }
@@ -5871,7 +6030,16 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
       mode: obj.mode === 'excel' ? 'excel' : 'duzeltilmis',
       ornek: obj.ornek === true,
       genel: Object.assign(base.genel, pick(obj.genel, Object.keys(base.genel))),
-      belgeler: obj.belgeler.map((b) => newBelge(pick(b, Object.keys(newBelge())))),
+      belgeler: obj.belgeler.map((b) => {
+        const nb = newBelge(pick(b, Object.keys(newBelge()).filter((k) => k !== 'kullanimlar')));
+        if (Array.isArray(b.kullanimlar)) {
+          nb.kullanimlar = b.kullanimlar.map((k) => ({ yil: String(k.yil || ''), a: String(k.a || ''), b: String(k.b || ''), df: String(k.df || '') }));
+        } else if (b.oncekiKullanilan1722 || b.oncekiKullanilanDiger) {
+          // Eski kayıt: toplam tutarları yılı belirtilmemiş tek satıra taşı
+          nb.kullanimlar = [{ yil: '', a: String(b.oncekiKullanilan1722 || ''), b: String(b.oncekiKullanilanDiger || ''), df: '' }];
+        }
+        return nb;
+      }),
     };
     if (!s.belgeler.length) s.belgeler.push(newBelge());
     return s;
@@ -5887,9 +6055,10 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
 
   // ---------------- Alan tanımları ----------------
   const GENEL_KAZANC = [
+    { key: 'hesapYili', t: 'year', unit: 'yıl', label: 'Hesap dönemi (yıl)', help: 'Hesaplamanın yapıldığı yıl. 7555 sayılı Kanun kapsamındaki on dönem ve dört dönem sınırları bu yıla göre kontrol edilir.' },
     { key: 'ticariKar', label: 'Ticari kâr', help: 'Ticari bilanço kârı. Tevsi yatırımlarda yatırımdan elde edilen kazanç bu tutarın payı olarak bulunur.' },
     { key: 'matrah', label: 'Kurumlar vergisi matrahı', help: 'İndirim ve istisnalar sonrası vergiye tabi kazanç. İndirimli oran en fazla bu tutara uygulanabilir.' },
-    { key: 'brutSK', label: 'Cari dönem brüt sabit kıymet', help: 'Dönem sonu brüt sabit kıymet toplamı. Kazanç oranı = belge harcaması ÷ bu tutar.' },
+    { key: 'brutSK', label: 'Cari dönem brüt sabit kıymet', help: 'Dönem sonunda aktifte kayıtlı, amortismana tabi tüm sabit kıymetlerin birikmiş amortisman düşülmeden önceki brüt tutarı. Devam eden yatırımlar dahil, boş arsa ve arazi hariç. Enflasyon düzeltmesi yapıldıysa düzeltilmiş değer. Kazanç oranı = belge harcaması ÷ bu tutar.' },
     { key: 'uretimKazanc', label: 'Üretimden elde edilen kazanç', help: 'Ticari kârın üretim faaliyetinden gelen kısmı (üretim oranı uygulanır).' },
     { key: 'ihracatKazanc', label: 'İhracattan elde edilen kazanç', help: 'Ticari kârın ihracattan gelen kısmı (ihracat oranı uygulanır).' },
     { key: 'digerKazanc', label: 'Diğer faaliyetlerden elde edilen kazanç', help: 'Otomatik: ticari kâr − üretim − ihracat. Genel orana tabidir.', calc: true },
@@ -5898,16 +6067,20 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     { key: 'oranGenel', label: 'Genel kurumlar vergisi oranı', help: 'Üretim ve ihracat dışındaki kazançlara uygulanan oran.' },
     { key: 'oranUretim', label: 'Üretim kazancı için vergi oranı', help: 'Üretim faaliyetinden elde edilen kazanca uygulanan oran (genel orandan 1 puan düşük).' },
     { key: 'oranIhracat', label: 'İhracat kazancı için vergi oranı', help: 'İhracattan elde edilen kazanca uygulanan oran (genel orandan 5 puan düşük).' },
+    { key: 'cbOrani', label: 'Diğer faaliyetlere uygulanabilir oran (7555 sonrası belgeler)', help: '24.07.2025 ve sonrası alınan belgelerde ilk dört dönemde diğer faaliyet kazançlarına uygulanabilecek YKT, toplam YKT\'nin bu oranı kadardır (Cumhurbaşkanı Kararı, %50).' },
   ];
+  GENEL_KAZANC.forEach((f) => { if (!f.t) f.t = 'money'; if (!f.unit) f.unit = 'TL'; });
+  GENEL_ORAN.forEach((f) => { f.t = 'pct'; f.unit = '%'; });
+  const parseYearInput = (raw) => { const s = String(raw).trim(); if (s === '') return ''; return /^\d{4}$/.test(s) ? s : null; };
 
   const ROWS = [
     { sec: 'Belge ve harcama bilgileri', note: 'Satır sırası Excel V2 satır 13-29 ile aynı' },
     { key: 'belgeNo', label: 'Yatırım teşvik belge no', type: 'text', ex: 13, help: 'Belgenin numarası. Sonuç ekranında belge adı olarak kullanılır.' },
-    { key: 'baslangic', label: 'Yatırım başlangıç tarihi', type: 'text', ex: 14, help: 'Bilgi amaçlıdır (gg.aa.yyyy).' },
+    { key: 'baslangic', label: 'Yatırım başlangıç tarihi', type: 'text', ex: 14, help: 'Yatırıma fiilen başlanılan tarih (gg.aa.yyyy). 24.07.2025 sonrası belgelerde diğer faaliyet kazançlarına uygulama için dört dönem bu tarihin yılından başlar.' },
     { key: 'bitis', label: 'Yatırım tamamlanma tarihi', type: 'text', ex: 15, help: 'Bilgi amaçlıdır (gg.aa.yyyy). Tamamlanmadıysa boş bırakın.' },
     { key: 'durum', label: 'Belge durumu', type: 'select', options: [DURUM.ACIK, DURUM.KAPALI], ex: 16, help: 'Açık: yatırım devam ediyor. Kapalı: yatırım tamamlanmış. Yatırım dönemi hesabı (diğer faaliyet kazançlarına uygulama) yalnızca açık belgelerde yapılır.' },
     { key: 'syt', label: 'Sabit yatırım tutarı', type: 'money', ex: 17, help: 'Belgede yazan toplam sabit yatırım tutarı.' },
-    { key: 'syt0208Oncesi', label: '02.08.2024 öncesi sabit yatırım tutarı', type: 'money', ex: 18, help: 'Bilgi amaçlıdır, hesaplamada kullanılmaz.' },
+    { key: 'syt0208Oncesi', label: '02.08.2024 öncesi sabit yatırım tutarı', type: 'money', ex: 18, help: 'Asgari kurumlar vergisinden mahsup edilebilecek YKT bu tutar üzerinden hesaplanır (02.08.2024 öncesi alınan belgeler). Bu tarihten sonraki revizyon artışları dahil edilmez.' },
     { key: 'syt0208Sonrasi', label: '02.08.2024 sonrası sabit yatırım tutarı', type: 'money', ex: 19, ph: 'syt', help: 'Toplam YKT tavanı ve diğer faaliyetlere uygulanabilir YKT bu tutar üzerinden hesaplanır. Boş bırakılırsa sabit yatırım tutarı kullanılır.' },
     { key: 'h2017Oncesi', label: '2017 öncesi fiili harcama', type: 'money', ex: 20, help: 'Belge kapsamında 2017 yılından önce yapılan yatırım harcaması (nominal).' },
     { key: 'h2017_2022', label: '2017-2022 yılları fiili harcama', type: 'money', ex: 21, help: '2017-2022 (dahil) yıllarında yapılan harcama. Bu harcamaya YKO + %15 uygulanır.' },
@@ -5920,6 +6093,14 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     { key: 'yko', label: 'Yatırıma katkı oranı (YKO)', type: 'pct', ex: 28, help: 'Belgede yazan yatırıma katkı oranı. 40 veya %40 yazabilirsiniz.' },
     { key: 'ilaveYko', label: '2017-2022 yılları ilave YKO', type: 'pct', ex: 29, help: '2017-2022 harcamalarına eklenen ilave oran. Mevzuat gereği %15.' },
 
+    { sec: 'Belge tarihi ve 7555 sayılı Kanun kontrolü', note: '24.07.2025 ve sonrası alınan belgeler yeni hükümlere tabidir' },
+    { key: 'belgeTarihi', label: 'Teşvik belgesinin alındığı tarih', type: 'text', help: 'Gg.aa.yyyy. 24.07.2025 ve sonrası alınan belgeler (16.06.2025 öncesi başvurular hariç) 7555 sayılı Kanunla getirilen hükümlere tabidir. 02.08.2024 öncesi belgelerde YKT asgari kurumlar vergisinden mahsup edilebilir.' },
+    { key: 'basvuruTarihi', label: 'Teşvik belgesi başvuru tarihi', type: 'text', help: 'Gg.aa.yyyy. Başvurusu 16.06.2025 öncesinde yapılmış ve reddedilmemiş belgeler, 24.07.2025 sonrası alınsa bile eski hükümlere tabidir.' },
+    { key: 'hukum', label: 'Uygulanacak hükümler', type: 'select', options: [['', 'Otomatik (tarihlere göre)'], ['eski', '7555 öncesi hükümler'], ['yeni', '7555 sonrası hükümler']], help: 'Normalde otomatik bırakın. Tarihler eksikse veya özel bir durum varsa elle seçebilirsiniz.' },
+    { calc: 'hukumText', label: 'Tabi olduğu hükümler (sonuç)' },
+    { key: 'ilkIndirimYili', label: 'İndirim hakkının kullanılabildiği ilk hesap dönemi (yıl)', type: 'text', help: '7555 sonrası belgelerde on dönem sınırı bu yıldan başlar (ilk dönem dahil en fazla 10 dönem). Boş bırakılırsa önceki dönem kullanım tablosundaki ilk yıl, o da yoksa bu hesap dönemi alınır.' },
+    { calc: 'donemText', label: 'Dönem sınırları (7555 sonrası belgeler)' },
+
     { sec: 'Dönem ve tercih' },
     { key: 'donem', label: 'Belgenin bu dönemdeki durumu', type: 'select', options: [DONEM.YATIRIM, DONEM.KISMI, DONEM.ISLETME], help: 'Yatırım dönemi: henüz kazanç yok. Kısmi işletme: yatırım sürerken üretim ve kazanç var. İşletme: yatırım tamamlandı. Kısmi işletme ve işletme dönemindeki belgeler için işletme dönemi hesabı zorunludur.' },
     { key: 'yatirimDonemiHesapla', label: 'Yatırım dönemi hesabı yapılsın mı', type: 'check', help: 'Açık belgelerde, işletme dönemi sonrası kalan matraha YKT uygulanıp uygulanmayacağı. Excel V2 satır 159.' },
@@ -5930,9 +6111,11 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     { key: 'digerYko', label: 'Diğer faaliyetlere uygulanabilir YKO payı', type: 'pct', ex: 36, help: 'Yatırım döneminde YKT\'nin diğer faaliyet kazançlarına uygulanabilecek oranı (Excel V2\'de %80).' },
     { key: 'digerYko1722', label: '2017-2022 için diğer faaliyetlere uygulanabilir YKO payı', type: 'pct', ex: 37, help: '2017-2022 harcamalarından doğan YKT için oran (Excel V2\'de %100).' },
 
-    { sec: 'Önceki dönemlerde kullanılan YKT' },
-    { key: 'oncekiKullanilanDiger', label: 'Önceki dönemlerde 2017 öncesi ve 2023 sonrası harcamalardan kullanılan YKT', type: 'money', ex: 42, help: 'Geçmiş dönem beyannamelerinde bu harcamalardan doğan YKT\'den kullanılan toplam tutar.' },
-    { key: 'oncekiKullanilan1722', label: 'Önceki dönemlerde 2017-2022 harcamalarından kullanılan YKT', type: 'money', ex: 43, help: 'Geçmiş dönemlerde 2017-2022 harcamalarından doğan YKT\'den kullanılan toplam tutar.' },
+    { sec: 'Önceki dönemlerde kullanılan YKT (zorunlu)', note: 'Yıllar itibarıyla girilmeli' },
+    { key: 'kullanimlar', label: 'Yıllar itibarıyla kullanılan YKT', type: 'kullanim', help: 'Geçmiş beyannamelerde bu belge için kullanılan YKT, yıl yıl. Kalan YKT, asgari KV mahsubu, on dönem ve diğer faaliyet sınırları bu bilgiye göre hesaplanır. Önceki dönemde kullanım yoksa açılan pencerede belirtin.' },
+    { calc: 'prevA', label: 'Önceki dönemler toplamı: 2017-2022 harcamalarından', ex: 43 },
+    { calc: 'prevB', label: 'Önceki dönemler toplamı: 2017 öncesi ve 2023 sonrası harcamalardan', ex: 42 },
+    { calc: 'prevDF', label: 'Bunun diğer faaliyet kazançlarına uygulanan kısmı', ex: 45 },
     { key: 'endeksYkt', label: 'Endeksleme nedeniyle hak kazanılan YKT', type: 'money', ex: 32, help: 'Kalan YKT\'ye eklenir (2017 öncesi ve 2023 sonrası harcamalara ait havuz). Excel V2 ile birebir modunda eklenmez.' },
 
     { sec: 'Otomatik hesaplanan değerler' },
@@ -5944,6 +6127,7 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     { calc: 'dfKalan', label: 'Diğer faaliyetlere uygulanabilir kalan YKT', ex: 40 },
     { calc: 'fayda', label: 'Bu dönem kullanılan YKT', strong: true },
     { calc: 'devreden', label: 'Sonraki döneme devreden YKT', strong: true },
+    { calc: 'akvMahsup', label: 'Asgari KV\'den mahsup edilebilecek YKT (bu dönem)', ex: 222 },
   ];
   const INPUT_ROWS = ROWS.filter((r) => !r.sec);
 
@@ -5955,20 +6139,17 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
         <div class="inwrap"><input id="g_${f.key}" data-g="${f.key}" type="text" inputmode="decimal" autocomplete="off" ${f.calc ? 'readonly tabindex="-1" class="calc"' : ''}><span class="unit">${unit}</span></div>
         <div class="help">${esc(f.help)}</div>
       </div>`;
-    document.getElementById('genelKazanc').innerHTML = '<h3 style="margin-top:0">Kazanç ve matrah</h3>' + GENEL_KAZANC.map((f) => row(f, 'TL')).join('');
-    document.getElementById('genelOran').innerHTML = '<h3 style="margin-top:0">Vergi oranları</h3>' + GENEL_ORAN.map((f) => row(f, '%')).join('') +
+    document.getElementById('genelKazanc').innerHTML = '<h3 style="margin-top:0">Dönem, kazanç ve matrah</h3>' + GENEL_KAZANC.map((f) => row(f, f.unit)).join('');
+    document.getElementById('genelOran').innerHTML = '<h3 style="margin-top:0">Vergi oranları</h3>' + GENEL_ORAN.map((f) => row(f, f.unit)).join('') +
       '<p class="note">Oranları 25 veya %25 biçiminde yazabilirsiniz.</p>';
     fillGenel();
   }
   function fillGenel() {
-    GENEL_KAZANC.forEach((f) => {
+    GENEL_KAZANC.concat(GENEL_ORAN).forEach((f) => {
       const el = document.getElementById('g_' + f.key);
-      if (f.calc) return;
-      if (document.activeElement !== el) el.value = moneyInput(state.genel[f.key]);
-    });
-    GENEL_ORAN.forEach((f) => {
-      const el = document.getElementById('g_' + f.key);
-      if (document.activeElement !== el) el.value = pctInput(state.genel[f.key]);
+      if (f.calc || document.activeElement === el) return;
+      const v = state.genel[f.key];
+      el.value = f.t === 'pct' ? pctInput(v) : f.t === 'year' ? (v || '') : moneyInput(v);
     });
   }
   function renderGenelCalc() {
@@ -6023,7 +6204,14 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
         const id = `c_${ri}_${i}`;
         let cell;
         if (r.type === 'select') {
-          cell = `<select id="${id}" data-i="${i}" data-k="${r.key}">${r.options.map((o) => `<option${b[r.key] === o ? ' selected' : ''}>${esc(o)}</option>`).join('')}</select>`;
+          cell = `<select id="${id}" data-i="${i}" data-k="${r.key}">${r.options.map((o) => {
+            const [v, l] = Array.isArray(o) ? o : [o, o];
+            return `<option value="${esc(v)}"${(b[r.key] || '') === v ? ' selected' : ''}>${esc(l)}</option>`;
+          }).join('')}</select>`;
+        } else if (r.type === 'kullanim') {
+          const n = (b.kullanimlar || []).length;
+          const durum = n ? `${n} satır girildi` : b.oncekiKullanimYok ? 'Kullanım yok' : 'Girilmedi';
+          cell = `<button class="btn small kul-btn${!n && !b.oncekiKullanimYok ? ' danger' : ''}" style="width:100%" data-act="kul" data-i="${i}" id="${id}">${esc(durum)} · Düzenle</button>`;
         } else if (r.type === 'check') {
           cell = `<label style="display:flex;gap:6px;align-items:center;justify-content:flex-end"><input id="${id}" type="checkbox" data-i="${i}" data-k="${r.key}" ${b[r.key] !== false ? 'checked' : ''}> Evet</label>`;
         } else {
@@ -6045,9 +6233,17 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
       const b = result.belgeler[+td.dataset.i];
       if (!b) return;
       const k = td.dataset.calc;
+      if (k === 'hukumText') { td.textContent = b.yeniHukum ? '7555 sonrası (yeni)' : '7555 öncesi'; td.title = b.hukumKaynak; td.style.textAlign = 'left'; return; }
+      if (k === 'donemText') {
+        td.style.textAlign = 'left';
+        td.textContent = !b.yeniHukum ? 'Sınır yok' : `${b.donemNo || '?'}. dönem / 10` + (b.basYil ? ` · diğer faaliyet ${b.basYil}-${b.dfSonYil}` : '');
+        td.style.color = b.sureDoldu ? 'var(--err)' : '';
+        return;
+      }
       let v;
       if (k === 'fayda') v = b.ozet.fayda;
       else if (k === 'devreden') v = b.ozet.devreden;
+      else if (k === 'akvMahsup') v = b.ozet.akvMahsup;
       else v = b[k];
       td.textContent = fmtTL(v);
     });
@@ -6092,6 +6288,7 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
       <div class="kpi"><div class="t">Ödenecek kurumlar vergisi</div><div class="v">${fmtTL(o.odenecekVergi)} TL</div><div class="s">İndirimli kısım ${fmtTL(o.indirimliVergi)} + normal kısım ${fmtTL(o.odenecekVergi.minus(o.indirimliVergi))}</div></div>
       <div class="kpi"><div class="t">Teşviksiz kurumlar vergisi</div><div class="v">${fmtTL(o.tesviksizVergi)} TL</div><div class="s">Matrah ${fmtTL(M)} × karma oran ${fmtPct(g.karmaOran, 3)}</div></div>
       <div class="kpi"><div class="t">Efektif vergi oranı</div><div class="v">${fmtPct(o.efektifOran)}</div><div class="s">Ödenecek KV ÷ matrah</div></div>
+      <div class="kpi"><div class="t">Asgari KV'den mahsup edilebilecek YKT</div><div class="v">${fmtTL(o.akvMahsup)} TL</div><div class="s">Yalnızca 02.08.2024 öncesi alınan belgeler, o tarihteki sabit yatırım tutarı üzerinden</div></div>
     </div>`;
 
     h += `<div class="card"><h3 style="margin-top:0">Matrahın dağılımı</h3>
@@ -6108,16 +6305,16 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
 
     // Belge tablosu
     h += `<div class="card"><h3 style="margin-top:0">Belge bazında sonuç</h3><div class="res-wrap"><table class="res">
-      <tr><th>Belge</th><th>Dönem başı kalan YKT</th><th>İşletme dönemi matrahı</th><th>İşletme dönemi YKT</th><th>Yatırım dönemi matrahı</th><th>Yatırım dönemi YKT</th><th>Toplam kullanılan YKT</th><th>İndirimli oranla vergi</th><th>Devreden YKT</th></tr>`;
+      <tr><th>Belge</th><th>Dönem başı kalan YKT</th><th>İşletme dönemi matrahı</th><th>İşletme dönemi YKT</th><th>Yatırım dönemi matrahı</th><th>Yatırım dönemi YKT</th><th>Toplam kullanılan YKT</th><th>İndirimli oranla vergi</th><th>Devreden YKT</th><th>Asgari KV mahsubu</th></tr>`;
     let tKalan = D(0), tDev = D(0);
     result.belgeler.forEach((b) => {
       tKalan = tKalan.plus(b.kalan); tDev = tDev.plus(b.ozet.devreden);
-      h += `<tr><td class="txt"><b>${esc(b.ad)}</b><br><span class="badge ${b.acik ? '' : 'gray'}">${b.acik ? 'Açık' : 'Kapalı'}</span><span class="badge gray">${esc(b.donem)}</span></td>
+      h += `<tr><td class="txt"><b>${esc(b.ad)}</b><br><span class="badge ${b.acik ? '' : 'gray'}">${b.acik ? 'Açık' : 'Kapalı'}</span><span class="badge gray">${esc(b.donem)}</span><span class="badge ${b.yeniHukum ? '' : 'gray'}">${b.yeniHukum ? '7555 sonrası' : '7555 öncesi'}</span>${b.kullanimGirildi ? '' : '<span class="badge" style="background:var(--err-bg);color:var(--err)">Önceki kullanım girilmedi</span>'}</td>
         <td>${fmtTL(b.kalan)}</td><td>${fmtTL(b.ozet.isletmeMatrah)}</td><td>${fmtTL(b.ozet.isletmeFayda)}</td>
         <td>${fmtTL(b.ozet.yatirimMatrah)}</td><td>${fmtTL(b.ozet.yatirimFayda)}</td><td><b>${fmtTL(b.ozet.fayda)}</b></td>
-        <td>${fmtTL(b.ozet.vergi)}</td><td>${fmtTL(b.ozet.devreden)}</td></tr>`;
+        <td>${fmtTL(b.ozet.vergi)}</td><td>${fmtTL(b.ozet.devreden)}</td><td>${fmtTL(b.ozet.akvMahsup)}</td></tr>`;
     });
-    h += `<tr class="tot"><td>Toplam</td><td>${fmtTL(tKalan)}</td><td>${fmtTL(o.isletmeMatrah)}</td><td>${fmtTL(o.isletmeFayda)}</td><td>${fmtTL(o.yatirimMatrah)}</td><td>${fmtTL(o.yatirimFayda)}</td><td>${fmtTL(o.toplamFayda)}</td><td>${fmtTL(o.indirimliVergi)}</td><td>${fmtTL(tDev)}</td></tr>
+    h += `<tr class="tot"><td>Toplam</td><td>${fmtTL(tKalan)}</td><td>${fmtTL(o.isletmeMatrah)}</td><td>${fmtTL(o.isletmeFayda)}</td><td>${fmtTL(o.yatirimMatrah)}</td><td>${fmtTL(o.yatirimFayda)}</td><td>${fmtTL(o.toplamFayda)}</td><td>${fmtTL(o.indirimliVergi)}</td><td>${fmtTL(tDev)}</td><td>${fmtTL(o.akvMahsup)}</td></tr>
       </table></div>
       <p class="note">Bir belgenin ayrıntılı hesabını görmek için <a href="#" data-go="detay">Hesap adımları</a> sekmesine geçin.</p></div>`;
 
@@ -6177,6 +6374,19 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
 
     result.belgeler.forEach((b) => {
       const rows = [];
+      rows.push({ h: '0. Tabi olunan hükümler (7555 sayılı Kanun kontrolü)' });
+      rows.push({ l: 'Uygulanan hükümler', v: b.yeniHukum ? '7555 sonrası' : '7555 öncesi', x: b.hukumKaynak });
+      if (b.yeniHukum) {
+        rows.push({ l: 'Vergi indirim oranı', v: fmtPct(b.vio), x: 'Yeni hükümlerde %60' });
+        rows.push({ l: 'On dönem sınırı', v: b.donemNo ? `${b.donemNo}. dönem` : '–', x: `İlk indirim dönemi ${b.ilkYil || '?'}, en fazla 10 dönem (son yıl ${b.ilkYil ? b.ilkYil + 9 : '?'})${b.sureDoldu ? '. SÜRE DOLDU.' : ''}` });
+        rows.push({ l: 'Diğer faaliyet kazançlarına uygulama dönemi', v: b.basYil ? `${b.basYil}-${b.dfSonYil}` : '–', x: b.dfPencereAcik ? 'Yatırıma başlanılan dönem dahil ilk dört dönem. Bu dönem içinde.' : 'Dört dönem geçti, diğer faaliyet kazançlarına uygulanmaz.' });
+      }
+      rows.push({ h: '0b. Önceki dönemlerde kullanılan YKT (yıllar itibarıyla)' });
+      if (b.kullanimlar.length) {
+        b.kullanimlar.forEach((k) => rows.push({ l: `Yıl ${k.yil || '(yıl girilmemiş)'}`, v: T(D(k.a).plus(D(k.b))), x: `2017-2022: ${fmtTL(k.a)} · diğer yıllar: ${fmtTL(k.b)} · diğer faaliyete uygulanan: ${fmtTL(k.df)}` }));
+      } else {
+        rows.push({ l: b.kullanimGirildi ? 'Önceki dönemde kullanım yok' : 'GİRİLMEDİ', v: '–', x: b.kullanimGirildi ? '' : 'Teşvik belgeleri sekmesinde "Yıllar itibarıyla kullanılan YKT" düğmesinden girin.' });
+      }
       rows.push({ h: '1. Yatırıma katkı tutarı (YKT) havuzları' });
       rows.push({ l: 'Toplam fiili harcama (nominal)', v: T(b.hT), x: '2017 öncesi + 2017-2022 + 2023 ve sonrası', ex: 23 });
       rows.push({ l: 'Toplam YKT (tavan)', v: T(b.toplamYKT), x: `(SYT ${fmtTL(b.sytE)} − 2017-22 harcama) × YKO ${fmtPct(b.yko)} + 2017-22 harcama × (YKO + ${fmtPct(b.ilave)})`, ex: 30 });
@@ -6254,6 +6464,15 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
       rows.push({ l: 'Devreden YKT: diğer yıllar havuzu', v: T(b.ozet.devredenB) });
       rows.push({ l: 'Sonraki döneme devreden toplam YKT', v: T(b.ozet.devreden), key: true, x: 'Fiili harcamadan doğan YKT − önceki ve bu dönem kullanımları. Açık belgelerde yatırım dönemi kullanımı nedeniyle negatif olabilir, harcama yapıldıkça kapanır.' });
       rows.push({ l: 'Sabit yatırım tutarına göre kalan YKT tavanı', v: T(b.ozet.kalanTavan), x: 'Toplam YKT + endeksleme YKT − önceki dönemler − bu dönem kullanımı' });
+      rows.push({ h: '5. Asgari kurumlar vergisi mahsubu' });
+      if (b.once0208) {
+        rows.push({ l: '02.08.2024 öncesi SYT üzerinden hesaplanan YKT', v: T(b.akvYKT), ex: 219 });
+        rows.push({ l: 'Önceki dönemlerde kullanılan', v: T(b.prevA.plus(b.prevB)), ex: 220 });
+        rows.push({ l: 'Cari dönem kullanılabilir', v: T(b.akvKalan), ex: 221 });
+        rows.push({ l: 'Asgari KV\'den mahsup edilebilecek tutar (bu dönem)', v: T(b.ozet.akvMahsup), key: true, x: 'Bu dönem kullanılan YKT, cari dönem kullanılabilir tutarla sınırlı', ex: 222 });
+      } else {
+        rows.push({ l: 'Mahsup edilemez', v: '0,00 TL', x: '02.08.2024 ve sonrasında alınan belgelerde YKT nedeniyle alınmayan vergi asgari kurumlar vergisinden düşülemez.' });
+      }
 
       h += `<details class="step"><summary>${esc(b.ad)} · ${b.acik ? 'Açık' : 'Kapalı'} · ${esc(b.donem)} <span class="sumv">Kullanılan YKT ${T(b.ozet.fayda)} · Devreden ${T(b.ozet.devreden)}</span></summary><div class="inner">${rowsHtml(rows)}</div></details>`;
     });
@@ -6271,12 +6490,12 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     const lines = [];
     lines.push(['İndirimli Kurumlar Vergisi Hesabı', state.donemAdi, state.mode === 'excel' ? 'Mod: Excel V2 ile birebir' : 'Mod: Düzeltilmiş']);
     lines.push([]);
-    lines.push(['Belge', 'Durum', 'Dönem', 'Dönem başı kalan YKT', 'İşletme dönemi matrahı', 'İşletme dönemi YKT', 'Yatırım dönemi matrahı', 'Yatırım dönemi YKT', 'Toplam kullanılan YKT', 'İndirimli oranla vergi', 'Devreden YKT 2017-2022', 'Devreden YKT diğer', 'Devreden YKT toplam']);
-    result.belgeler.forEach((b) => lines.push([b.ad, b.acik ? 'Açık' : 'Kapalı', b.donem, n(b.kalan), n(b.ozet.isletmeMatrah), n(b.ozet.isletmeFayda), n(b.ozet.yatirimMatrah), n(b.ozet.yatirimFayda), n(b.ozet.fayda), n(b.ozet.vergi), n(b.ozet.devredenA), n(b.ozet.devredenB), n(b.ozet.devreden)]));
+    lines.push(['Belge', 'Durum', 'Dönem', 'Dönem başı kalan YKT', 'İşletme dönemi matrahı', 'İşletme dönemi YKT', 'Yatırım dönemi matrahı', 'Yatırım dönemi YKT', 'Toplam kullanılan YKT', 'İndirimli oranla vergi', 'Devreden YKT 2017-2022', 'Devreden YKT diğer', 'Devreden YKT toplam', 'Hükümler', 'Asgari KV mahsubu']);
+    result.belgeler.forEach((b) => lines.push([b.ad, b.acik ? 'Açık' : 'Kapalı', b.donem, n(b.kalan), n(b.ozet.isletmeMatrah), n(b.ozet.isletmeFayda), n(b.ozet.yatirimMatrah), n(b.ozet.yatirimFayda), n(b.ozet.fayda), n(b.ozet.vergi), n(b.ozet.devredenA), n(b.ozet.devredenB), n(b.ozet.devreden), b.yeniHukum ? '7555 sonrası' : '7555 öncesi', n(b.ozet.akvMahsup)]));
     lines.push([]);
     lines.push(['Özet', 'Tutar']);
     [['Kurumlar vergisi matrahı', result.genel.matrah], ['İşletme dönemi indirimli matrah', o.isletmeMatrah], ['Yatırım dönemi indirimli matrah', o.yatirimMatrah], ['Normal oranlara tabi matrah', o.normalMatrah],
-      ['Teşviksiz kurumlar vergisi', o.tesviksizVergi], ['Kullanılan toplam YKT', o.toplamFayda], ['Ödenecek kurumlar vergisi', o.odenecekVergi]].forEach(([a, v]) => lines.push([a, n(v)]));
+      ['Teşviksiz kurumlar vergisi', o.tesviksizVergi], ['Kullanılan toplam YKT', o.toplamFayda], ['Ödenecek kurumlar vergisi', o.odenecekVergi], ['Asgari KV\'den mahsup edilebilecek YKT', o.akvMahsup]].forEach(([a, v]) => lines.push([a, n(v)]));
     lines.push(['Efektif vergi oranı', D(o.efektifOran).mul(100).toFixed(4).replace('.', ',') + '%']);
     const tsv = lines.map((r) => r.map((c) => String(c == null ? '' : c).replace(/[\t\r\n]+/g, ' ')).join('\t')).join('\r\n');
     copyText(tsv, 'Sonuçlar kopyalandı. Excel\'de bir hücreye yapıştırın.', 'Sonuçları kopyalayın');
@@ -6297,11 +6516,12 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
   });
 
   // Genel alanlar
-  const genelFields = GENEL_KAZANC.filter((f) => !f.calc).map((f) => ({ key: f.key, t: 'money' })).concat(GENEL_ORAN.map((f) => ({ key: f.key, t: 'pct' })));
+  const genelFields = GENEL_KAZANC.filter((f) => !f.calc).concat(GENEL_ORAN).map((f) => ({ key: f.key, t: f.t }));
+  const parseGenel = (t, raw) => (t === 'money' ? parseMoney(raw) : t === 'year' ? parseYearInput(raw) : parsePct(raw));
   function applyGenel(el) {
     const f = genelFields.find((x) => x.key === el.dataset.g);
     if (!f) return;
-    const v = f.t === 'money' ? parseMoney(el.value) : parsePct(el.value);
+    const v = parseGenel(f.t, el.value);
     el.classList.toggle('invalid', v === null);
     if (v !== null) { state.genel[f.key] = v; state.ornek = false; schedule(); }
   }
@@ -6317,7 +6537,7 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     let start = genelFields.findIndex((f) => f.key === el.dataset.g);
     vals.forEach((raw, k) => {
       const f = genelFields[start + k]; if (!f) return;
-      const v = f.t === 'money' ? parseMoney(raw) : parsePct(raw);
+      const v = parseGenel(f.t, raw);
       if (v !== null) state.genel[f.key] = v;
     });
     fillGenel(); schedule();
@@ -6381,9 +6601,12 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
         const ci = c0 + dj;
         while (ci >= state.belgeler.length) state.belgeler.push(newBelge());
         const b = state.belgeler[ci];
-        if (row.type === 'select') {
-          const m = row.options.find((o) => o.toLocaleLowerCase('tr-TR') === String(raw).trim().toLocaleLowerCase('tr-TR'));
-          if (m) b[row.key] = m; else if (String(raw).trim()) skipped++;
+        if (row.type === 'kullanim') {
+          // tabloyla girilir, yapıştırmada atlanır
+        } else if (row.type === 'select') {
+          const t = String(raw).trim().toLocaleLowerCase('tr-TR');
+          const m = row.options.map((o) => (Array.isArray(o) ? o : [o, o])).find(([v, l]) => v.toLocaleLowerCase('tr-TR') === t || l.toLocaleLowerCase('tr-TR') === t);
+          if (m) b[row.key] = m[0]; else if (String(raw).trim()) skipped++;
         } else if (row.type === 'check') {
           b[row.key] = !/^(hayır|hayir|no|0|false)$/i.test(String(raw).trim());
         } else {
@@ -6400,9 +6623,10 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     const btn = e.target.closest('button[data-act]'); if (!btn) return;
     const i = +btn.dataset.i, bs = state.belgeler;
     switch (btn.dataset.act) {
+      case 'kul': openKullanim(i); return;
       case 'add': bs.push(newBelge()); break;
       case 'dup': {
-        const kopya = Object.assign({}, bs[i], { belgeNo: (bs[i].belgeNo || 'Belge') + ' (kopya)' });
+        const kopya = Object.assign({}, bs[i], { belgeNo: (bs[i].belgeNo || 'Belge') + ' (kopya)', kullanimlar: (bs[i].kullanimlar || []).map((k) => Object.assign({}, k)) });
         delete kopya.id;
         bs.splice(i + 1, 0, newBelge(kopya));
         break;
@@ -6415,6 +6639,93 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     }
     renderMatrix(); recalc();
   });
+
+  // Önceki dönem kullanım tablosu (yıllar itibarıyla)
+  function openKullanim(i) {
+    const b = state.belgeler[i];
+    const rows = (b.kullanimlar || []).map((k) => Object.assign({}, k));
+    if (!rows.length && !b.oncekiKullanimYok) {
+      const y = parseInt(state.genel.hesapYili, 10);
+      rows.push({ yil: y ? String(y - 1) : '', a: '', b: '', df: '' });
+    }
+    const rowHtml = (k, j) => `<tr>
+      <td><input type="text" id="ku_y_${j}" data-j="${j}" data-f="yil" value="${esc(k.yil)}" placeholder="yyyy" style="width:70px"></td>
+      <td><input type="text" id="ku_a_${j}" data-j="${j}" data-f="a" value="${esc(moneyInput(k.a))}" inputmode="decimal"></td>
+      <td><input type="text" id="ku_b_${j}" data-j="${j}" data-f="b" value="${esc(moneyInput(k.b))}" inputmode="decimal"></td>
+      <td><input type="text" id="ku_d_${j}" data-j="${j}" data-f="df" value="${esc(moneyInput(k.df))}" inputmode="decimal"></td>
+      <td><button class="btn small danger" data-del="${j}" title="Satırı sil">Sil</button></td></tr>`;
+    const draw = () => {
+      document.getElementById('kulBody').innerHTML = rows.map(rowHtml).join('');
+      document.getElementById('kulYok').checked = !rows.length && !!b.oncekiKullanimYok;
+    };
+    openModal(`Önceki dönemlerde kullanılan YKT · ${b.belgeNo || 'Belge ' + (i + 1)}`,
+      `<p>Bu belge için geçmiş beyannamelerde kullanılan YKT'yi <b>yıl yıl</b> girin. Kalan YKT, asgari KV mahsubu ve 7555 sayılı Kanundaki dönem sınırları bu bilgiye göre hesaplanır.</p>
+       <div class="res-wrap"><table class="res kul-table"><thead><tr><th>Yıl</th><th>2017-2022 harcamalarından</th><th>2017 öncesi ve 2023 sonrası harcamalardan</th><th>Bunun diğer faaliyet kazançlarına uygulanan kısmı</th><th></th></tr></thead><tbody id="kulBody"></tbody></table></div>
+       <div class="next-row" style="justify-content:space-between;align-items:center">
+         <label style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="kulYok"> Önceki dönemlerde bu belgeden YKT kullanılmadı</label>
+         <button class="btn small" id="kulEkle">+ Yıl ekle</button>
+       </div>
+       <p class="note">Excel'den yıl, 2017-2022, diğer yıllar ve diğer faaliyet sütunlarını blok halinde kopyalayıp ilk kutuya yapıştırabilirsiniz.</p>`,
+      [
+        { label: 'Vazgeç' },
+        {
+          label: 'Kaydet', primary: true, onClick: () => {
+            const yok = document.getElementById('kulYok').checked;
+            const temiz = rows.filter((k) => k.yil || k.a || k.b || k.df);
+            if (temiz.some((k) => k.yil && !/^\d{4}$/.test(k.yil))) { notify('Yıl dört haneli olmalı (ör. 2024).'); return false; }
+            if (!temiz.length && !yok) { notify('En az bir yıl girin veya "kullanılmadı" seçeneğini işaretleyin.'); return false; }
+            b.kullanimlar = yok ? [] : temiz;
+            b.oncekiKullanimYok = yok && !temiz.length ? true : false;
+            state.ornek = false;
+            renderMatrix(); recalc();
+            notify('Önceki dönem kullanımları kaydedildi.');
+          },
+        },
+      ]);
+    draw();
+    const body = document.getElementById('kulBody');
+    body.addEventListener('input', (e) => {
+      const el = e.target; if (!el.dataset.f) return;
+      const v = el.dataset.f === 'yil' ? el.value.trim() : parseMoney(el.value);
+      el.classList.toggle('invalid', v === null);
+      if (v !== null) rows[+el.dataset.j][el.dataset.f] = v;
+      if (v) document.getElementById('kulYok').checked = false;
+    });
+    body.addEventListener('focusout', (e) => {
+      const el = e.target; if (!el.dataset.f || el.dataset.f === 'yil' || el.classList.contains('invalid')) return;
+      el.value = moneyInput(rows[+el.dataset.j][el.dataset.f]);
+    });
+    body.addEventListener('click', (e) => {
+      const d = e.target.closest('[data-del]'); if (!d) return;
+      rows.splice(+d.dataset.del, 1); draw();
+    });
+    body.addEventListener('paste', (e) => {
+      const el = e.target; if (!el.dataset.f) return;
+      const text = (e.clipboardData || window.clipboardData).getData('text');
+      if (!/[\n\t]/.test(text.replace(/[\r\n]+$/, ''))) return;
+      e.preventDefault();
+      const fields = ['yil', 'a', 'b', 'df'];
+      const f0 = fields.indexOf(el.dataset.f), j0 = +el.dataset.j;
+      text.replace(/\r/g, '').replace(/\n+$/, '').split('\n').forEach((line, di) => {
+        const cols = line.split('\t');
+        while (rows.length <= j0 + di) rows.push({ yil: '', a: '', b: '', df: '' });
+        cols.forEach((raw, dj) => {
+          const f = fields[f0 + dj]; if (!f) return;
+          const v = f === 'yil' ? String(raw).trim() : parseMoney(raw);
+          if (v !== null) rows[j0 + di][f] = v;
+        });
+      });
+      draw();
+    });
+    document.getElementById('kulEkle').addEventListener('click', () => {
+      const ys = rows.map((k) => parseInt(k.yil, 10)).filter(Boolean);
+      rows.push({ yil: ys.length ? String(Math.max(...ys) + 1) : '', a: '', b: '', df: '' });
+      draw();
+    });
+    document.getElementById('kulYok').addEventListener('change', (e) => {
+      if (e.target.checked) { rows.length = 0; draw(); document.getElementById('kulYok').checked = true; }
+    });
+  }
 
   // Tooltip
   const tipEl = document.getElementById('tooltip');
