@@ -21,9 +21,10 @@
     --err: #c62828;
     --err-bg: #fdecea;
     --info-bg: #eaf2fb;
-    --c-isl: #2E75B6;
-    --c-yat: #7FB0DD;
-    --c-gen: #c9d3e0;
+    --c-isl: #2B5FA6;
+    --c-yat: #5FA0DB;
+    --c-gen: #D5DCE6;
+    --track: #EEF2F7;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: Calibri, "Segoe UI", Carlito, Arial, sans-serif; font-size: 15px; }
@@ -169,8 +170,43 @@
   .callout { background: var(--info-bg); border-left: 4px solid var(--blue); padding: 10px 14px; border-radius: 4px; font-size: 13.5px; line-height: 1.45; margin-bottom: 14px; }
   .callout.warn { background: var(--warn-bg); border-left-color: var(--warn); }
 
+  /* Yönetici özeti */
+  .hero { display: flex; flex-wrap: wrap; gap: 18px 32px; justify-content: space-between; align-items: center; background: var(--navy); color: #fff; border-radius: 8px; padding: 22px 26px; margin: 4px 0 16px; }
+  .hero-main { min-width: 0; flex: 1 1 420px; }
+  .hero .eyebrow { font-size: 12.5px; letter-spacing: .6px; text-transform: uppercase; opacity: .8; }
+  .hero-num { font-size: 40px; font-weight: 700; line-height: 1.15; margin: 4px 0 6px; font-variant-numeric: tabular-nums; }
+  .hero-txt { font-size: 15.5px; opacity: .92; max-width: 640px; line-height: 1.45; }
+  .hero-side { display: grid; gap: 8px; min-width: 220px; }
+  .hero-side div { display: flex; justify-content: space-between; gap: 18px; border-bottom: 1px solid rgba(255,255,255,.18); padding-bottom: 6px; font-size: 13.5px; }
+  .hero-side span { opacity: .8; }
+  .st-ok { color: #9BE3A8; } .st-err { color: #FFB4A8; }
+  .chart-card h3 { margin-top: 0; }
+  .hbars { display: grid; gap: 8px; }
+  .hb-row { display: grid; grid-template-columns: minmax(90px, 160px) 1fr minmax(90px, auto); gap: 10px; align-items: center; font-size: 13.5px; }
+  .hb-lbl { color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .hb-track { background: var(--track); border-radius: 0 4px 4px 0; height: 18px; }
+  .hb-bar { background: var(--c-isl); height: 100%; border-radius: 0 4px 4px 0; min-width: 2px; }
+  .hb-bar.gray { background: #A9B4C2; }
+  .hb-val { text-align: right; font-variant-numeric: tabular-nums; color: var(--navy); font-weight: 600; white-space: nowrap; }
+  .hb-row:hover .hb-bar { filter: brightness(1.12); }
+  .stack { display: flex; gap: 2px; height: 30px; }
+  .stack .seg { height: 100%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12px; font-weight: 700; min-width: 2px; }
+  .stack .seg:first-child { border-radius: 4px 0 0 4px; } .stack .seg:last-child { border-radius: 0 4px 4px 0; }
+  .seg.isl, .sw.isl { background: var(--c-isl); } .seg.yat, .sw.yat { background: var(--c-yat); } .seg.gen, .sw.gen { background: var(--c-gen); }
+  .seg.gen, .seg.yat { color: var(--navy); }
+  .flow3 { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; }
+  .flow3 > div:not(.arrow) { flex: 1 1 120px; border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; }
+  .flow3 > div.hl { background: var(--blue-faint); border-color: var(--c-isl); }
+  .flow3 span { font-size: 12.5px; color: var(--muted); }
+  .flow3 b { font-size: 18px; color: var(--navy); font-variant-numeric: tabular-nums; }
+  .flow3 .arrow { align-self: center; color: var(--muted); font-size: 18px; }
+  @media (max-width: 720px) { .hero-num { font-size: 30px; } .hb-row { grid-template-columns: 90px 1fr auto; } }
   .modal-back { position: fixed; inset: 0; background: rgba(20, 30, 50, .45); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 16px; }
   .modal-back[hidden] { display: none; }
+  .ydo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px 14px; }
+  .ydo-item { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+  .ydo-item > span { width: 46px; }
+  .ydo-item .inwrap { flex: 1; }
   .kul-table input { width: 100%; min-width: 110px; padding: 5px 7px; border: 1px solid #c9d3e2; border-radius: 3px; background: #fffef5; text-align: right; font-variant-numeric: tabular-nums; }
   .kul-table th { font-size: 12.5px; }
   .modal { background: var(--bg); color: var(--ink); border-radius: 8px; max-width: 860px; width: 100%; padding: 18px 20px; box-shadow: 0 10px 40px rgba(0,0,0,.25); max-height: 90vh; overflow: auto; }
@@ -191,9 +227,11 @@
     dl.gloss { grid-template-columns: 1fr; }
   }
   @media print {
-    .topbar .top-actions, nav.tabs, .kpi-strip, .next-row, .no-print { display: none !important; }
+    .topbar .top-actions, nav.tabs, .kpi-strip, .next-row, .no-print, details.step { display: none !important; }
     section.tab { display: none !important; }
-    section#tab-sonuc, section#tab-detay { display: block !important; }
+    section#tab-sonuc { display: block !important; }
+    .hero, .kpi, .seg, .hb-bar, .sw { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .card, .kpi { break-inside: avoid; }
     details.step { break-inside: avoid; }
     details.step > summary::before { content: ""; }
     .topbar { background: #fff; color: var(--navy); border-bottom: 2px solid var(--navy); }
@@ -222,15 +260,16 @@
     <button class="btn ghost" id="btnVeri" title="Girilen verileri metin olarak kopyalayın veya daha önce kopyaladığınız veriyi geri yükleyin">Kaydet / Yükle</button>
     <input type="file" id="fileIn" accept=".json,application/json,text/plain" hidden>
     <button class="btn ghost" id="btnYeni" title="Tüm verileri temizler">Yeni</button>
+    <button class="btn ghost" id="btnYazdir" title="Yönetici özetini yazdırır veya PDF olarak kaydeder">PDF / Yazdır</button>
   </div>
 </header>
 
 <nav class="tabs" id="tabs">
-  <button data-tab="nasil"><span class="n">1</span>Nasıl çalışır</button>
-  <button data-tab="genel"><span class="n">2</span>Genel bilgiler</button>
-  <button data-tab="belge"><span class="n">3</span>Teşvik belgeleri</button>
-  <button data-tab="sonuc"><span class="n">4</span>Sonuç</button>
-  <button data-tab="detay"><span class="n">5</span>Hesap adımları</button>
+  <button data-tab="sonuc">Yönetici özeti</button>
+  <button data-tab="genel"><span class="n">1</span>Genel bilgiler</button>
+  <button data-tab="belge"><span class="n">2</span>Teşvik belgeleri</button>
+  <button data-tab="detay">Hesap adımları</button>
+  <button data-tab="nasil">Rehber</button>
 </nav>
 
 <div class="kpi-strip" id="kpiStrip"></div>
@@ -245,6 +284,7 @@
       <h3 style="margin-top:0">Hızlı başlangıç</h3>
       <ol class="defs">
         <li>Üstteki <b>Yeni</b> düğmesiyle örnek verileri temizleyin.</li>
+        <li>Verileriniz Excel'deyse <b>Teşvik belgeleri</b> sekmesindeki <b>Excel'den toplu aktar</b> düğmesiyle, alan adlarıyla birlikte kopyaladığınız bloğu tek seferde aktarabilirsiniz.</li>
         <li><b>Genel bilgiler</b> sekmesinde hesap yılını, ticari kârı, matrahı, brüt sabit kıymeti ve kazanç dağılımını girin.</li>
         <li><b>Teşvik belgeleri</b> sekmesinde her belge için bir sütun doldurun. Belge tarihi, harcamalar, oranlar ve <b>önceki dönemlerde yıl yıl kullanılan YKT</b> zorunludur.</li>
         <li><b>Sonuç</b> sekmesinde ödenecek vergiyi, kullanılan ve devreden YKT'yi ve asgari KV mahsubunu görün. Kırmızı uyarı varsa önce onu giderin.</li>
@@ -350,6 +390,7 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
       <div class="card" id="genelOran"></div>
     </div>
     <div class="card soft" id="genelOzet"></div>
+    <div class="card" id="genelYdo"></div>
     <div class="next-row"><button class="btn" data-go="nasil">← Geri</button><button class="btn primary" data-go="belge">İleri: Teşvik belgeleri →</button></div>
   </section>
 
@@ -357,8 +398,9 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
   <section class="tab" id="tab-belge">
     <h2>Teşvik belgeleri</h2>
     <p class="lead">Her sütun bir yatırım teşvik belgesidir. Sarı kutular giriş alanıdır, gri satırlar otomatik hesaplanır. Alan adının yanındaki <span class="tip">?</span> işaretinin üzerine gelerek açıklamayı görebilirsiniz.</p>
+    <div class="next-row" style="justify-content:flex-start;margin:0 0 10px"><button class="btn primary" data-import>Excel'den toplu aktar</button><span class="note" style="align-self:center">Alan adı sütunuyla birlikte kopyaladığınız bloğu yapıştırın, alanlar adına göre eşleşir.</span></div>
     <div class="callout">
-      <b>Excel'den hızlı aktarım:</b> Excel V2'deki "İKV Hesaplaması" sayfasında 13-29. satırlar ve D:F sütunlarını (belge no'dan ilave YKO'ya kadar) kopyalayın, ardından ilk belgenin "Belge no" kutusuna yapıştırın. Satırlar ve sütunlar aynı sırayla dolar, eksik belge sütunları otomatik açılır.
+      <b>Hücreye yapıştırma:</b> Bloğu alan adı sütunuyla birlikte (ör. Excel'de C:AS) kopyalayıp herhangi bir kutuya yapıştırırsanız, satırlar alan adına göre eşleşir. Alan adı olmadan yapıştırırsanız Excel V2 satır 13-29 sırası esas alınır. Eksik belge sütunları otomatik açılır.
       <br><b>Yatırım dönemi sırası:</b> Açık belgelerde yatırım dönemi hesabı soldan sağa sütun sırasıyla yapılır. Sırayı ← → düğmeleriyle değiştirin.
     </div>
     <div class="matrix-wrap"><table class="matrix" id="matrix"></table></div>
@@ -5372,6 +5414,12 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
   const dmin = (a, b) => (a.lt(b) ? a : b);
   const pos = (a) => (a.lt(0) ? ZERO : a);
   const div = (a, b) => (b.isZero() ? ZERO : a.div(b));
+  // VUK 298/A kapsamında ilan edilen yeniden değerleme oranları (varsayılan, kullanıcı değiştirebilir)
+  const YDO_VARSAYILAN = {
+    2017: '0.1447', 2018: '0.2373', 2019: '0.2258', 2020: '0.0911', 2021: '0.3620',
+    2022: '1.2293', 2023: '0.5846', 2024: '0.4393', 2025: '0.2549',
+  };
+
   // 'gg.aa.yyyy', 'yyyy-aa-gg' veya Excel seri numarası → yyyymmdd sayısı
   function parseDate(v) {
     if (isBlank(v)) return 0;
@@ -5388,6 +5436,13 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     return 0;
   }
   const parseYear = (v) => Math.floor(parseDate(v) / 10000);
+  // İki havuzdan (A: 2017-2022, B: diğer yıllar) kullanım düşer; bir havuz eksiye düşerse fark diğerinden düşülür.
+  function havuzDus(K, a, b) {
+    let A = K.A.minus(a), B = K.B.minus(b);
+    if (A.lt(0)) { B = B.plus(A); A = ZERO; }
+    if (B.lt(0)) { A = A.plus(B); B = ZERO; }
+    return { A: A.lt(0) ? ZERO : A, B: B.lt(0) ? ZERO : B };
+  }
   const fmtTR = (d) => {
     const [i, f] = d.toFixed(2).split('.');
     return i.replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',' + f;
@@ -5413,6 +5468,10 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     const L = { u: D(g.oranUretim), i: D(g.oranIhracat), d: D(g.oranGenel) };
     const hesapYili = parseInt(g.hesapYili, 10) || 0;
     const cbOrani = isBlank(g.cbOrani) ? new Decimal('0.5') : D(g.cbOrani);
+    // VUK yeniden değerleme oranları {yıl: oran}. Girilmeyen yıllar için varsayılanlar kullanılır.
+    const ydo = {};
+    Object.keys(YDO_VARSAYILAN).forEach((y) => { ydo[y] = new Decimal(YDO_VARSAYILAN[y]); });
+    if (g.ydo && typeof g.ydo === 'object') Object.keys(g.ydo).forEach((y) => { if (!isBlank(g.ydo[y])) ydo[y] = D(g.ydo[y]); });
     if (!hesapYili) warn('uyari', 'Hesap dönemi (yıl) girilmedi. 7555 sayılı Kanun kapsamındaki on dönem ve dört dönem sınırları kontrol edilemez.');
 
     const share = {
@@ -5535,11 +5594,50 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
         yktB = yktB.minus(dusB);
         yktA = pos(yktA.minus(tavanAsimi.minus(dusB)));
       }
-      // Düzeltilmiş mod, kural 2: endeksleme nedeniyle hak kazanılan YKT kalan YKT'ye (B havuzu) eklenir.
-      const endeksEklenen = excel ? ZERO : endeksYkt;
-      let kalanB = yktB.plus(endeksEklenen).minus(prevB);                                // satır 35
-      let kalanA = yktA.minus(prevA);                                                    // satır 36
-      if (!excel) { kalanA = pos(kalanA); kalanB = pos(kalanB); }
+      // Endeksleme (tanım 30-32): yatırımın tamamlandığı dönemi izleyen yıllarda kalan YKT, o yıl için
+      // belirlenen VUK yeniden değerleme oranıyla artırılır. Elle tutar girilmişse o tutar kullanılır.
+      const tamYil = parseYear(b.bitis);
+      const endeks = { A: ZERO, B: ZERO, adimlar: [], otomatik: false, eksikOran: [] };
+      if (!excel && isBlank(b.endeksYkt) && tamYil && hesapYili > tamYil) {
+        endeks.otomatik = true;
+        const kul = { A: {}, B: {} };
+        let yilsizA = ZERO, yilsizB = ZERO;
+        kullanimlar.forEach((k) => {
+          const y = parseInt(k.yil, 10);
+          if (y > 1990) {
+            kul.A[y] = (kul.A[y] || ZERO).plus(D(k.a));
+            kul.B[y] = (kul.B[y] || ZERO).plus(D(k.b));
+          } else { yilsizA = yilsizA.plus(D(k.a)); yilsizB = yilsizB.plus(D(k.b)); }
+        });
+        if (yilsizA.plus(yilsizB).gt(0)) warn('uyari', 'Endeksleme: yılı girilmemiş önceki dönem kullanımı var. Bu tutar tamamlanma yılından önce kullanılmış sayıldı.', ad);
+        const K = havuzDus({ A: yktA, B: yktB }, yilsizA, yilsizB);
+        const ilk = Math.min(tamYil, ...kullanimYillari.filter((y) => y <= tamYil).concat([tamYil]));
+        for (let y = ilk; y < hesapYili; y++) {
+          Object.assign(K, havuzDus(K, kul.A[y] || ZERO, kul.B[y] || ZERO));
+          const sonraki = y + 1;
+          if (y >= tamYil && sonraki >= 2017) {
+            const oranHam = ydo[sonraki];
+            if (oranHam === undefined) endeks.eksikOran.push(sonraki);
+            const oran = oranHam === undefined ? ZERO : oranHam;
+            const artA = K.A.mul(oran), artB = K.B.mul(oran);
+            endeks.adimlar.push({ yil: sonraki, oran, oncesi: K.A.plus(K.B), artis: artA.plus(artB) });
+            K.A = K.A.plus(artA); K.B = K.B.plus(artB);
+            endeks.A = endeks.A.plus(artA); endeks.B = endeks.B.plus(artB);
+          }
+        }
+        endeks.K = K;
+        if (endeks.eksikOran.length) warn('uyari', 'Endeksleme: ' + endeks.eksikOran.join(', ') + ' yılı için yeniden değerleme oranı girilmemiş, %0 alındı (Genel bilgiler > Yeniden değerleme oranları).', ad);
+      } else if (!excel && !isBlank(b.endeksYkt)) {
+        endeks.B = endeksYkt;
+      }
+      const endeksEklenen = endeks.A.plus(endeks.B);
+      let kalanB = yktB.plus(endeks.B).minus(prevB);                                     // satır 35
+      let kalanA = yktA.plus(endeks.A).minus(prevA);                                     // satır 36
+      if (!excel) {
+        // Bir havuzdan fazla kullanım girilmişse fazlalık diğer havuzdan düşülür (toplam kalan YKT korunur)
+        if (endeks.otomatik) { kalanA = endeks.K.A; kalanB = endeks.K.B; }
+        else { const k = havuzDus({ A: yktA.plus(endeks.A), B: yktB.plus(endeks.B) }, prevA, prevB); kalanA = k.A; kalanB = k.B; }
+      }
       let dfSinir, dfYKT, dfB, dfA, dfKalanA, dfKalanB;
       if (yeniHukum) {
         // 7555 sonrası: ilk 4 dönemde, toplam YKT'nin CB kararıyla belirlenen oranı (%50) kadar, hak edilen YKT'yi aşmamak üzere
@@ -5583,7 +5681,7 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
         idx, ad, acik, donem, kaynak: b,
         h0, h1, h2, hT, e0, e1, e2, eT, syt, sytE,
         yko, ilave, dYko, dYko1722, vio, vio1722,
-        toplamYKT, hakYKT, endeksYkt, endeksEklenen, hakToplam: hakYKT.plus(endeksYkt),
+        toplamYKT, hakYKT, endeksYkt, endeksEklenen, endeks, tamYil, hakToplam: hakYKT.plus(endeksEklenen),
         yktAHam, yktBHam, tavanAsimi, tavanUygulandi,
         yktA, yktB, dfSinir, dfYKT, dfA, dfB, prevA, prevB, prevDF,
         kullanimlar, kullanimGirildi,
@@ -5859,14 +5957,14 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     },
   ];
 
-  return { calculate, Decimal, D, DONEM, DURUM, DUZELTMELER };
+  return { calculate, Decimal, D, DONEM, DURUM, DUZELTMELER, YDO_VARSAYILAN, parseDate };
 });
 
 </script>
 <script>
 (function () {
   'use strict';
-  const { calculate, D, DONEM, DURUM, DUZELTMELER, Decimal } = IKV;
+  const { calculate, D, DONEM, DURUM, DUZELTMELER, Decimal, YDO_VARSAYILAN, parseDate } = IKV;
   const STORE_KEY = 'ikv-hesaplayici-v1';
 
   // ---------------- Biçimlendirme ve ayrıştırma ----------------
@@ -5969,7 +6067,7 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     return Object.assign({
       id: 'b' + (uid++) + '_' + Date.now().toString(36),
       belgeNo: '', baslangic: '', bitis: '', durum: DURUM.ACIK, donem: DONEM.YATIRIM, yatirimDonemiHesapla: true,
-      belgeTarihi: '', basvuruTarihi: '', hukum: '', ilkIndirimYili: '',
+      belgeTarihi: '', basvuruTarihi: '', hukum: '', ilkIndirimYili: '', kapamaBasvuruTarihi: '', kapamaTarihi: '',
       syt: '', syt0208Oncesi: '', syt0208Sonrasi: '',
       h2017Oncesi: '', h2017_2022: '', h2023Sonrasi: '',
       enf2017Oncesi: '', enf2017_2022: '', enf2023Sonrasi: '',
@@ -5982,7 +6080,7 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
   function emptyState() {
     return {
       donemAdi: '', mode: 'duzeltilmis',
-      genel: { hesapYili: String(new Date().getFullYear() - 1), ticariKar: '', matrah: '', brutSK: '', uretimKazanc: '', ihracatKazanc: '', oranGenel: '0.25', oranUretim: '0.24', oranIhracat: '0.2', cbOrani: '0.5' },
+      genel: { hesapYili: String(new Date().getFullYear() - 1), ticariKar: '', matrah: '', brutSK: '', uretimKazanc: '', ihracatKazanc: '', oranGenel: '0.25', oranUretim: '0.24', oranIhracat: '0.2', cbOrani: '0.5', ydo: {} },
       belgeler: [newBelge()],
     };
   }
@@ -5991,7 +6089,7 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
   function sampleState() {
     return {
       donemAdi: '2025 (sentetik örnek)', mode: 'duzeltilmis', ornek: true,
-      genel: { hesapYili: '2025', ticariKar: '1200000000', matrah: '620000000', brutSK: '3000000000', uretimKazanc: '450000000', ihracatKazanc: '150000000', oranGenel: '0.25', oranUretim: '0.24', oranIhracat: '0.2', cbOrani: '0.5' },
+      genel: { hesapYili: '2025', ticariKar: '1200000000', matrah: '620000000', brutSK: '3000000000', uretimKazanc: '450000000', ihracatKazanc: '150000000', oranGenel: '0.25', oranUretim: '0.24', oranIhracat: '0.2', cbOrani: '0.5', ydo: {} },
       belgeler: [
         newBelge({ belgeNo: 'TB-1003', baslangic: '01.10.2025', bitis: '', durum: DURUM.ACIK, donem: DONEM.YATIRIM,
           belgeTarihi: '10.09.2025', basvuruTarihi: '20.06.2025',
@@ -6029,7 +6127,7 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
       donemAdi: String(obj.donemAdi || ''),
       mode: obj.mode === 'excel' ? 'excel' : 'duzeltilmis',
       ornek: obj.ornek === true,
-      genel: Object.assign(base.genel, pick(obj.genel, Object.keys(base.genel))),
+      genel: Object.assign(base.genel, pick(obj.genel, Object.keys(base.genel).filter((k) => k !== 'ydo')), { ydo: sanitizeYdo(obj.genel.ydo) }),
       belgeler: obj.belgeler.map((b) => {
         const nb = newBelge(pick(b, Object.keys(newBelge()).filter((k) => k !== 'kullanimlar')));
         if (Array.isArray(b.kullanimlar)) {
@@ -6043,6 +6141,11 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     };
     if (!s.belgeler.length) s.belgeler.push(newBelge());
     return s;
+  }
+  function sanitizeYdo(o) {
+    const r = {};
+    if (o && typeof o === 'object') Object.keys(o).forEach((y) => { if (/^d{4}$/.test(y) && o[y] !== '' && o[y] != null) r[y] = String(o[y]); });
+    return r;
   }
   function pick(o, keys) {
     const r = {};
@@ -6077,7 +6180,7 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     { sec: 'Belge ve harcama bilgileri', note: 'Satır sırası Excel V2 satır 13-29 ile aynı' },
     { key: 'belgeNo', label: 'Yatırım teşvik belge no', type: 'text', ex: 13, help: 'Belgenin numarası. Sonuç ekranında belge adı olarak kullanılır.' },
     { key: 'baslangic', label: 'Yatırım başlangıç tarihi', type: 'text', ex: 14, help: 'Yatırıma fiilen başlanılan tarih (gg.aa.yyyy). 24.07.2025 sonrası belgelerde diğer faaliyet kazançlarına uygulama için dört dönem bu tarihin yılından başlar.' },
-    { key: 'bitis', label: 'Yatırım tamamlanma tarihi', type: 'text', ex: 15, help: 'Bilgi amaçlıdır (gg.aa.yyyy). Tamamlanmadıysa boş bırakın.' },
+    { key: 'bitis', label: 'Yatırımın fiilen tamamlanma tarihi', type: 'text', ex: 15, help: 'Gg.aa.yyyy. Tamamlanmadıysa boş bırakın. Tamamlanma yılını izleyen yıllarda kalan YKT, yeniden değerleme oranıyla otomatik endekslenir.' },
     { key: 'durum', label: 'Belge durumu', type: 'select', options: [DURUM.ACIK, DURUM.KAPALI], ex: 16, help: 'Açık: yatırım devam ediyor. Kapalı: yatırım tamamlanmış. Yatırım dönemi hesabı (diğer faaliyet kazançlarına uygulama) yalnızca açık belgelerde yapılır.' },
     { key: 'syt', label: 'Sabit yatırım tutarı', type: 'money', ex: 17, help: 'Belgede yazan toplam sabit yatırım tutarı.' },
     { key: 'syt0208Oncesi', label: '02.08.2024 öncesi sabit yatırım tutarı', type: 'money', ex: 18, help: 'Asgari kurumlar vergisinden mahsup edilebilecek YKT bu tutar üzerinden hesaplanır (02.08.2024 öncesi alınan belgeler). Bu tarihten sonraki revizyon artışları dahil edilmez.' },
@@ -6100,6 +6203,8 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     { calc: 'hukumText', label: 'Tabi olduğu hükümler (sonuç)' },
     { key: 'ilkIndirimYili', label: 'İndirim hakkının kullanılabildiği ilk hesap dönemi (yıl)', type: 'text', help: '7555 sonrası belgelerde on dönem sınırı bu yıldan başlar (ilk dönem dahil en fazla 10 dönem). Boş bırakılırsa önceki dönem kullanım tablosundaki ilk yıl, o da yoksa bu hesap dönemi alınır.' },
     { calc: 'donemText', label: 'Dönem sınırları (7555 sonrası belgeler)' },
+    { key: 'kapamaBasvuruTarihi', label: 'Belge kapama için Bakanlığa başvuru tarihi', type: 'text', help: 'Gg.aa.yyyy. Bilgi amaçlı kayıt.' },
+    { key: 'kapamaTarihi', label: 'Belge kapama (tamamlama vizesi) tarihi', type: 'text', help: 'Gg.aa.yyyy. Bilgi amaçlı kayıt.' },
 
     { sec: 'Dönem ve tercih' },
     { key: 'donem', label: 'Belgenin bu dönemdeki durumu', type: 'select', options: [DONEM.YATIRIM, DONEM.KISMI, DONEM.ISLETME], help: 'Yatırım dönemi: henüz kazanç yok. Kısmi işletme: yatırım sürerken üretim ve kazanç var. İşletme: yatırım tamamlandı. Kısmi işletme ve işletme dönemindeki belgeler için işletme dönemi hesabı zorunludur.' },
@@ -6116,7 +6221,8 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     { calc: 'prevA', label: 'Önceki dönemler toplamı: 2017-2022 harcamalarından', ex: 43 },
     { calc: 'prevB', label: 'Önceki dönemler toplamı: 2017 öncesi ve 2023 sonrası harcamalardan', ex: 42 },
     { calc: 'prevDF', label: 'Bunun diğer faaliyet kazançlarına uygulanan kısmı', ex: 45 },
-    { key: 'endeksYkt', label: 'Endeksleme nedeniyle hak kazanılan YKT', type: 'money', ex: 32, help: 'Kalan YKT\'ye eklenir (2017 öncesi ve 2023 sonrası harcamalara ait havuz). Excel V2 ile birebir modunda eklenmez.' },
+    { key: 'endeksYkt', label: 'Endeksleme YKT (elle giriş, opsiyonel)', type: 'money', ex: 32, help: 'Boş bırakın: endeksleme, tamamlanma tarihi, yıllık kullanım tablosu ve yeniden değerleme oranlarından otomatik hesaplanır. Tutar girerseniz otomatik hesap yerine bu tutar kalan YKT\'ye eklenir. Excel V2 ile birebir modunda eklenmez.' },
+    { calc: 'endeksEklenen', label: 'Endeksleme nedeniyle eklenen YKT (hesaplanan)', ex: 32 },
 
     { sec: 'Otomatik hesaplanan değerler' },
     { calc: 'toplamYKT', label: 'Toplam YKT (sabit yatırım tutarına göre tavan)', ex: 30 },
@@ -6143,6 +6249,22 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     document.getElementById('genelOran').innerHTML = '<h3 style="margin-top:0">Vergi oranları</h3>' + GENEL_ORAN.map((f) => row(f, f.unit)).join('') +
       '<p class="note">Oranları 25 veya %25 biçiminde yazabilirsiniz.</p>';
     fillGenel();
+    renderYdo();
+  }
+  function renderYdo() {
+    const son = Math.max(parseInt(state.genel.hesapYili, 10) || 0, ...Object.keys(YDO_VARSAYILAN).map(Number));
+    const yillar = [];
+    for (let y = 2017; y <= son; y++) yillar.push(y);
+    const ov = state.genel.ydo || {};
+    document.getElementById('genelYdo').innerHTML = `
+      <h3 style="margin-top:0">Yeniden değerleme oranları (endeksleme için)</h3>
+      <p class="note" style="margin-top:0">Yatırımın tamamlandığı dönemi izleyen yıllarda kalan YKT, o yıl için VUK hükümlerine göre belirlenen yeniden değerleme oranıyla artırılır. Varsayılan oranları resmi ilanlarla teyit edin, gerekirse değiştirin.</p>
+      <div class="ydo-grid">${yillar.map((y) => {
+        const v = ov[y] !== undefined ? ov[y] : YDO_VARSAYILAN[y];
+        const degisti = ov[y] !== undefined && ov[y] !== YDO_VARSAYILAN[y];
+        return `<label class="ydo-item"><span>${y}${degisti ? ' <b title="Varsayılandan farklı">•</b>' : ''}</span><div class="inwrap"><input id="ydo_${y}" data-ydo="${y}" type="text" inputmode="decimal" value="${v !== undefined ? pctInput(v) : ''}" placeholder="girin"><span class="unit">%</span></div></label>`;
+      }).join('')}</div>
+      <div class="next-row" style="justify-content:flex-start"><button class="btn small" id="ydoReset">Varsayılan oranlara dön</button></div>`;
   }
   function fillGenel() {
     GENEL_KAZANC.concat(GENEL_ORAN).forEach((f) => {
@@ -6277,31 +6399,93 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
 
   function renderSonuc() {
     const o = result.ozet, g = result.genel;
-    document.getElementById('sonucBaslik').textContent = 'Sonuç' + (state.donemAdi ? ' · ' + state.donemAdi : '');
+    document.getElementById('sonucBaslik').textContent = 'Yönetici özeti';
     const M = g.matrah;
     const pctOf = (v) => (M.gt(0) ? Math.max(0, Math.min(100, Number(v.div(M).mul(100).toFixed(4)))) : 0);
     const wI = pctOf(o.isletmeMatrah), wY = pctOf(o.yatirimMatrah), wN = M.gt(0) ? Math.max(0, 100 - wI - wY) : 0;
 
+    const bs = result.belgeler;
+    const nHata = result.warnings.filter((w) => w.level === 'hata').length;
+    const nAcik = bs.filter((b) => b.acik).length, nYeni = bs.filter((b) => b.yeniHukum).length;
+    const tKalanBas = bs.reduce((s, b) => s.plus(b.kalan), D(0));
+    const tDevreden = bs.reduce((s, b) => s.plus(b.ozet.devreden), D(0));
+    const kisa = (v) => {
+      const d = D(v).abs(), sgn = D(v).lt(0) ? '-' : '';
+      if (d.gte(1e9)) return sgn + fmtNum(d.div(1e9), 2) + ' milyar TL';
+      if (d.gte(1e6)) return sgn + fmtNum(d.div(1e6), 1) + ' milyon TL';
+      return sgn + fmtTL(d) + ' TL';
+    };
+
     let h = '';
-    h += `<div class="kpis">
-      <div class="kpi main"><div class="t">Bu dönem kullanılan YKT (vergi avantajı)</div><div class="v">${fmtTL(o.toplamFayda)} TL</div><div class="s">İşletme dönemi ${fmtTL(o.isletmeFayda)} · Yatırım dönemi ${fmtTL(o.yatirimFayda)}</div></div>
-      <div class="kpi"><div class="t">Ödenecek kurumlar vergisi</div><div class="v">${fmtTL(o.odenecekVergi)} TL</div><div class="s">İndirimli kısım ${fmtTL(o.indirimliVergi)} + normal kısım ${fmtTL(o.odenecekVergi.minus(o.indirimliVergi))}</div></div>
-      <div class="kpi"><div class="t">Teşviksiz kurumlar vergisi</div><div class="v">${fmtTL(o.tesviksizVergi)} TL</div><div class="s">Matrah ${fmtTL(M)} × karma oran ${fmtPct(g.karmaOran, 3)}</div></div>
-      <div class="kpi"><div class="t">Efektif vergi oranı</div><div class="v">${fmtPct(o.efektifOran)}</div><div class="s">Ödenecek KV ÷ matrah</div></div>
-      <div class="kpi"><div class="t">Asgari KV'den mahsup edilebilecek YKT</div><div class="v">${fmtTL(o.akvMahsup)} TL</div><div class="s">Yalnızca 02.08.2024 öncesi alınan belgeler, o tarihteki sabit yatırım tutarı üzerinden</div></div>
+    // Başlık bandı: tek cümlelik yönetici mesajı
+    h += `<div class="hero">
+      <div class="hero-main">
+        <div class="eyebrow">${esc(state.donemAdi || (g.hesapYili ? g.hesapYili + ' hesap dönemi' : 'Hesap dönemi'))} · ${bs.length} teşvik belgesi</div>
+        <div class="hero-num">${kisa(o.toplamFayda)}</div>
+        <div class="hero-txt">Yatırım teşvik belgeleri sayesinde bu dönem ödenmeyecek kurumlar vergisi. Efektif vergi oranı <b>${fmtPct(g.karmaOran, 1)}</b> yerine <b>${fmtPct(o.efektifOran, 1)}</b>.</div>
+      </div>
+      <div class="hero-side">
+        <div><span>Açık / kapalı belge</span><b>${nAcik} / ${bs.length - nAcik}</b></div>
+        <div><span>7555 sonrası belge</span><b>${nYeni}</b></div>
+        <div><span>Kontrol durumu</span><b class="${nHata ? 'st-err' : 'st-ok'}">${nHata ? '● ' + nHata + ' hata' : '● Sorun yok'}</b></div>
+      </div>
     </div>`;
 
-    h += `<div class="card"><h3 style="margin-top:0">Matrahın dağılımı</h3>
-      <div class="bar">
-        <div style="width:${wI}%;background:var(--c-isl)" title="İşletme dönemi">${wI > 8 ? '%' + wI.toFixed(1).replace('.', ',') : ''}</div>
-        <div style="width:${wY}%;background:var(--c-yat)" title="Yatırım dönemi">${wY > 8 ? '%' + wY.toFixed(1).replace('.', ',') : ''}</div>
-        <div style="width:${wN}%;background:var(--c-gen);color:var(--navy)" title="Normal oranlara tabi">${wN > 8 ? '%' + wN.toFixed(1).replace('.', ',') : ''}</div>
+    h += `<div class="kpis">
+      <div class="kpi main"><div class="t">Vergi avantajı (kullanılan YKT)</div><div class="v">${fmtTL(o.toplamFayda)} TL</div><div class="s">İşletme dönemi ${kisa(o.isletmeFayda)} · yatırım dönemi ${kisa(o.yatirimFayda)}</div></div>
+      <div class="kpi"><div class="t">Ödenecek kurumlar vergisi</div><div class="v">${fmtTL(o.odenecekVergi)} TL</div><div class="s">Teşviksiz olsaydı ${kisa(o.tesviksizVergi)}</div></div>
+      <div class="kpi"><div class="t">Sonraki döneme devreden YKT</div><div class="v">${fmtTL(tDevreden)} TL</div><div class="s">Gelecek dönemlerde kullanılabilecek vergi avantajı</div></div>
+      <div class="kpi"><div class="t">Asgari KV'den mahsup edilebilecek</div><div class="v">${fmtTL(o.akvMahsup)} TL</div><div class="s">02.08.2024 öncesi alınan belgeler</div></div>
+    </div>`;
+
+    // Grafik 1: vergi karşılaştırması (tek ölçek, yatay çubuk)
+    const vmax = Decimal.max(o.tesviksizVergi, o.odenecekVergi, D(1));
+    const w = (v) => Math.max(0, Math.min(100, Number(D(v).div(vmax).mul(100).toFixed(2))));
+    h += `<div class="grid2">
+      <div class="card chart-card"><h3>Kurumlar vergisi: teşviksiz ve teşvikli</h3>
+        <div class="hbars">
+          <div class="hb-row" title="Teşviksiz kurumlar vergisi: ${fmtTL(o.tesviksizVergi)} TL"><span class="hb-lbl">Teşviksiz</span><div class="hb-track"><div class="hb-bar gray" style="width:${w(o.tesviksizVergi)}%"></div></div><span class="hb-val">${kisa(o.tesviksizVergi)}</span></div>
+          <div class="hb-row" title="Ödenecek kurumlar vergisi: ${fmtTL(o.odenecekVergi)} TL"><span class="hb-lbl">Ödenecek</span><div class="hb-track"><div class="hb-bar" style="width:${w(o.odenecekVergi)}%"></div></div><span class="hb-val">${kisa(o.odenecekVergi)}</span></div>
+        </div>
+        <p class="note">Fark <b>${kisa(o.toplamFayda)}</b>, yani teşvikle vergi yükü %${fmtNum(o.tesviksizVergi.gt(0) ? o.toplamFayda.div(o.tesviksizVergi).mul(100) : 0, 1)} azalıyor.</p>
       </div>
+      <div class="card chart-card"><h3>YKT havuzu bu dönem</h3>
+        <div class="flow3">
+          <div><span>Dönem başı kalan</span><b>${kisa(tKalanBas)}</b></div>
+          <div class="arrow">→</div>
+          <div class="hl"><span>Bu dönem kullanılan</span><b>${kisa(o.toplamFayda)}</b></div>
+          <div class="arrow">→</div>
+          <div><span>Devreden</span><b>${kisa(tDevreden)}</b></div>
+        </div>
+        <p class="note">Dönem başı kalan YKT, önceki dönem kullanımları düşülmüş ve gerekiyorsa endekslenmiş tutardır.</p>
+      </div>
+    </div>`;
+
+    // Grafik 2: matrah dağılımı (yığılmış çubuk, 2px boşluklu, açıklamalı)
+    const seg = (pct, cls, ad, tutar) => (pct > 0 ? `<div class="seg ${cls}" style="width:${pct}%" title="${ad}: ${fmtTL(tutar)} TL (%${fmtNum(pct, 1)})">${pct >= 12 ? '%' + fmtNum(pct, 0) : ''}</div>` : '');
+    h += `<div class="card chart-card"><h3>Kurumlar vergisi matrahı nasıl vergilendi?</h3>
+      <div class="stack">${seg(wI, 'isl', 'İşletme dönemi, indirimli oran', o.isletmeMatrah)}${seg(wY, 'yat', 'Yatırım dönemi, indirimli oran', o.yatirimMatrah)}${seg(wN, 'gen', 'Normal oranlar', o.normalMatrah)}</div>
       <div class="legend">
-        <span><span class="sw" style="background:var(--c-isl)"></span>İşletme dönemi indirimli matrah: <b>${fmtTL(o.isletmeMatrah)}</b></span>
-        <span><span class="sw" style="background:var(--c-yat)"></span>Yatırım dönemi indirimli matrah: <b>${fmtTL(o.yatirimMatrah)}</b></span>
-        <span><span class="sw" style="background:var(--c-gen)"></span>Normal oranlara tabi matrah: <b>${fmtTL(o.normalMatrah)}</b></span>
+        <span><span class="sw isl"></span>İşletme dönemi indirimli oran: <b>${fmtTL(o.isletmeMatrah)}</b></span>
+        <span><span class="sw yat"></span>Yatırım dönemi indirimli oran: <b>${fmtTL(o.yatirimMatrah)}</b></span>
+        <span><span class="sw gen"></span>Normal oranlar: <b>${fmtTL(o.normalMatrah)}</b></span>
       </div></div>`;
+
+    // Grafik 3: belge bazında kullanılan YKT (ilk 10 + diğerleri)
+    const sirali = bs.slice().sort((a, b) => b.ozet.fayda.cmp(a.ozet.fayda)).filter((b) => b.ozet.fayda.gt(0));
+    const ilk = sirali.slice(0, 10), kalanlar = sirali.slice(10);
+    const digerT = kalanlar.reduce((s, b) => s.plus(b.ozet.fayda), D(0));
+    const bmax = ilk.length ? ilk[0].ozet.fayda : D(1);
+    const bw = (v) => Math.max(0.5, Math.min(100, Number(D(v).div(bmax).mul(100).toFixed(2))));
+    h += `<div class="card chart-card"><h3>Belge bazında kullanılan YKT</h3>`;
+    if (!sirali.length) h += '<p class="empty">Bu dönem YKT kullanan belge yok.</p>';
+    else {
+      h += '<div class="hbars">' + ilk.map((b) => `<div class="hb-row" title="${esc(b.ad)}: ${fmtTL(b.ozet.fayda)} TL · devreden ${fmtTL(b.ozet.devreden)} TL"><span class="hb-lbl">${esc(b.ad)}</span><div class="hb-track"><div class="hb-bar" style="width:${bw(b.ozet.fayda)}%"></div></div><span class="hb-val">${kisa(b.ozet.fayda)}</span></div>`).join('') +
+        (kalanlar.length ? `<div class="hb-row" title="Diğer ${kalanlar.length} belge: ${fmtTL(digerT)} TL"><span class="hb-lbl">Diğer ${kalanlar.length} belge</span><div class="hb-track"><div class="hb-bar gray" style="width:${bw(digerT)}%"></div></div><span class="hb-val">${kisa(digerT)}</span></div>` : '') + '</div>';
+      const kullanmayan = bs.length - sirali.length;
+      if (kullanmayan) h += `<p class="note">${kullanmayan} belge bu dönem YKT kullanmadı (yatırım döneminde, matrah yetmedi veya kalan YKT yok).</p>`;
+    }
+    h += '</div>';
 
     // Belge tablosu
     h += `<div class="card"><h3 style="margin-top:0">Belge bazında sonuç</h3><div class="res-wrap"><table class="res">
@@ -6331,13 +6515,24 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     <div class="next-row no-print" style="justify-content:flex-start"><button class="btn small" id="btnCsv" title="Belge tablosunu ve özeti panoya kopyalar, Excel'e yapıştırabilirsiniz">Sonuçları Excel'e kopyala</button></div></div>`;
 
     // Uyarılar
-    h += '<div class="card"><h3 style="margin-top:0">Kontroller ve uyarılar</h3>';
+    h += '<div class="card"><h3 style="margin-top:0">Dikkat gerektirenler</h3>';
     if (!result.warnings.length) h += '<p class="empty">Uyarı yok.</p>';
     else {
+      // Aynı uyarı birden çok belgede çıkıyorsa tek satırda toplanır
       const ord = { hata: 0, uyari: 1, bilgi: 2 };
       const lbl = { hata: 'Hata', uyari: 'Uyarı', bilgi: 'Bilgi' };
-      h += '<ul class="warns">' + result.warnings.slice().sort((a, b) => ord[a.level] - ord[b.level])
-        .map((w) => `<li class="${w.level}"><b>${lbl[w.level]}${w.belge ? ' · ' + esc(w.belge) : ''}:</b>${esc(w.text)}</li>`).join('') + '</ul>';
+      const gruplar = new Map();
+      result.warnings.forEach((wr) => {
+        const anahtar = wr.level + '|' + wr.text.replace(/[\d.,]+ TL/g, '# TL');
+        if (!gruplar.has(anahtar)) gruplar.set(anahtar, { level: wr.level, text: wr.text, belgeler: [] });
+        if (wr.belge) gruplar.get(anahtar).belgeler.push(wr.belge);
+      });
+      const liste = [...gruplar.values()].sort((a, b) => ord[a.level] - ord[b.level]);
+      h += '<ul class="warns">' + liste.map((x) => {
+        const bl = x.belgeler.length > 1 ? ` <span class="note">(${x.belgeler.length} belge: ${esc(x.belgeler.slice(0, 6).join(', '))}${x.belgeler.length > 6 ? '…' : ''})</span>` : '';
+        const tek = x.belgeler.length === 1 ? ' · ' + esc(x.belgeler[0]) : '';
+        return `<li class="${x.level}"><b>${lbl[x.level]}${tek}:</b>${esc(x.belgeler.length > 1 ? x.text.replace(/ \([\d.,]+ TL düşüldü\)/, '') : x.text)}${bl}</li>`;
+      }).join('') + '</ul>';
     }
     h += '</div></div>';
 
@@ -6398,7 +6593,11 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
         rows.push({ l: 'Esas alınan YKT: 2017-2022', v: T(b.yktA) });
         rows.push({ l: 'Esas alınan YKT: diğer yıllar', v: T(b.yktB) });
       }
-      if (b.endeksEklenen.gt(0)) rows.push({ l: 'Endeksleme nedeniyle hak kazanılan YKT (eklenir)', v: '+' + T(b.endeksEklenen), x: 'Diğer yıllar havuzuna eklenir', ex: 32 });
+      if (b.endeks.otomatik) {
+        rows.push({ l: 'Endeksleme', v: '', x: `Yatırım ${b.tamYil} yılında tamamlandı. İzleyen yıllarda dönem başı kalan YKT, o yılın yeniden değerleme oranıyla artırılır.` });
+        b.endeks.adimlar.forEach((a) => rows.push({ l: `  ${a.yil} yılı endekslemesi`, v: '+' + T(a.artis), x: `${fmtTL(a.oncesi)} × ${fmtPct(a.oran)}` }));
+      }
+      if (b.endeksEklenen.gt(0)) rows.push({ l: 'Endeksleme nedeniyle eklenen YKT (toplam)', v: '+' + T(b.endeksEklenen), x: b.endeks.otomatik ? 'Her havuz kendi kalan tutarı oranında artırıldı' : 'Elle girilen tutar, diğer yıllar havuzuna eklendi', ex: 32 });
       rows.push({ l: 'Önceki dönemlerde kullanılan (2017-2022)', v: T(b.prevA), ex: 43 });
       rows.push({ l: 'Önceki dönemlerde kullanılan (diğer yıllar)', v: T(b.prevB), ex: 42 });
       rows.push({ l: 'Kalan YKT: 2017-2022 havuzu', v: T(b.kalanA), ex: 48 });
@@ -6526,7 +6725,21 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     if (v !== null) { state.genel[f.key] = v; state.ornek = false; schedule(); }
   }
   const genelBox = document.getElementById('tab-genel');
-  genelBox.addEventListener('input', (e) => { if (e.target.dataset.g) applyGenel(e.target); });
+  genelBox.addEventListener('input', (e) => {
+    const el = e.target;
+    if (el.dataset.g) { applyGenel(el); if (el.dataset.g === 'hesapYili' && /^\d{4}$/.test(el.value.trim())) renderYdo(); }
+    if (el.dataset.ydo) {
+      const v = parsePct(el.value);
+      el.classList.toggle('invalid', v === null);
+      if (v === null) return;
+      state.genel.ydo = state.genel.ydo || {};
+      if (v === '') delete state.genel.ydo[el.dataset.ydo]; else state.genel.ydo[el.dataset.ydo] = v;
+      state.ornek = false; schedule();
+    }
+  });
+  genelBox.addEventListener('click', (e) => {
+    if (e.target.id === 'ydoReset') { state.genel.ydo = {}; renderYdo(); recalc(); notify('Yeniden değerleme oranları varsayılana döndü.'); }
+  });
   genelBox.addEventListener('focusout', (e) => { if (e.target.dataset.g && !e.target.classList.contains('invalid')) fillGenel(); });
   genelBox.addEventListener('paste', (e) => {
     const el = e.target; if (!el.dataset || !el.dataset.g) return;
@@ -6591,8 +6804,10 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     if (!/[\n\t]/.test(text.replace(/[\r\n]+$/, ''))) return;
     e.preventDefault();
     const grid = text.replace(/\r/g, '').replace(/\n+$/, '').split('\n').map((l) => l.split('\t'));
-    const r0 = INPUT_ROWS.findIndex((r) => r.key === el.dataset.k);
     const c0 = +el.dataset.i;
+    const etiketli = parseLabeledGrid(grid);
+    if (etiketli) { applyImport(etiketli, c0); return; }
+    const r0 = INPUT_ROWS.findIndex((r) => r.key === el.dataset.k);
     let skipped = 0;
     grid.forEach((cols, di) => {
       const row = INPUT_ROWS[r0 + di];
@@ -6639,6 +6854,170 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     }
     renderMatrix(); recalc();
   });
+
+  // ---------------- Excel'den etiketli toplu aktarım ----------------
+  // Satır başlıkları (etiketler) ile birlikte kopyalanan blok, etiket adına göre doğru alana yerleşir.
+  const normLabel = (s) => String(s || '').toLocaleLowerCase('tr-TR').replace(/â/g, 'a').replace(/î/g, 'i').replace(/û/g, 'u').replace(/[^a-z0-9çğıöşü]/g, '');
+  const LABEL_MAP = (() => {
+    const m = {};
+    const add = (labels, key) => labels.forEach((l) => { m[normLabel(l)] = key; });
+    ROWS.forEach((r) => { if (r.key && r.type !== 'kullanim') add([r.label], r.key); });
+    add(['Yatırım Teşvik Belge No', 'Yatırım Teşvik Belgesi No', 'Belge No', 'Teşvik Belge No'], 'belgeNo');
+    add(['Yatırım Başlangıç Tarihi', 'Başlangıç Tarihi'], 'baslangic');
+    add(['Yatırım Tamamlanma Tarihi', 'Tamamlanma Tarihi', 'Fiili Tamamlanma Tarihi'], 'bitis');
+    add(['Belge Durumu', 'Teşvik Belgesi Durumu'], 'durum');
+    add(['Dönem Bilgisi'], 'donem');
+    add(['Sabit Yatırım Tutarı'], 'syt');
+    add(['02.08.2024 Öncesi Sabit Yatırım Tutarı'], 'syt0208Oncesi');
+    add(['02.08.2024 Sonrası Sabit Yatırım Tutarı'], 'syt0208Sonrasi');
+    add(['2017 Öncesi Fiili Harcama'], 'h2017Oncesi');
+    add(['2017-2022 Yılları Fiili Harcama'], 'h2017_2022');
+    add(['2023 ve Sonraki Yıllar Fiili Harcama'], 'h2023Sonrasi');
+    add(['Enflasyon Dahil 2017 Öncesi Fiili Harcama'], 'enf2017Oncesi');
+    add(['Enflasyon Dahil 2017-2022 Yılları Fiili Harcama'], 'enf2017_2022');
+    add(['Enflasyon Dahil 2023 ve Sonraki Yıllar Fiili Harcama'], 'enf2023Sonrasi');
+    add(['YKO', 'Yatırıma Katkı Oranı'], 'yko');
+    add(['2017-2022 Yılları İlave YKO'], 'ilaveYko');
+    add(['Vergi İndirim Oranı'], 'vergiIndirim');
+    add(['Diğer Faaliyetlere Uygulanabilir YKO'], 'digerYko');
+    add(['Endeksleme Nedeniyle Hak Kazanılan YKT'], 'endeksYkt');
+    add(['Teşvik Belgesi Tarihi', 'Belge Tarihi', 'Belge Alış Tarihi'], 'belgeTarihi');
+    add(['Başvuru Tarihi', 'Teşvik Başvuru Tarihi'], 'basvuruTarihi');
+    add(['Belge Kapama Başvuru Tarihi', 'Kapama Başvuru Tarihi'], 'kapamaBasvuruTarihi');
+    add(['Belge Kapama Tarihi', 'Kapama Tarihi'], 'kapamaTarihi');
+    add(['Önceki Dönemlerde 2017 Öncesi ve 2022 Sonrası Harcamalarından Kullanılan YKT', 'Önceki Dönemlerde 2017 Öncesi ve 2023 Sonrası Harcamalardan Kullanılan YKT'], '#prevB');
+    add(['Önceki Dönemler 2017-2022 Harcamasından Kullanılan YKT', 'Önceki Dönemlerde 2017-2022 Harcamalarından Kullanılan YKT'], '#prevA');
+    add(['Önceki Dönemlerde Diğer Faaliyetlerden Elde Edilen Kazanç İçin Kullanılan YKT'], '#prevDF');
+    // Genel bilgiler
+    add(['Ticari Kar', 'Ticari Kâr', 'Ticari Bilanço Kârı'], 'g:ticariKar');
+    add(['Matrah', 'Kurumlar Vergisi Matrahı', 'KV Matrahı'], 'g:matrah');
+    add(['Cari Dönem Brüt SK', 'Cari Dönem Brüt Sabit Kıymet', 'Brüt Sabit Kıymet'], 'g:brutSK');
+    add(['Üretimden Elde Edilen Kazanç'], 'g:uretimKazanc');
+    add(['İhracattan Elde Edilen Kazanç'], 'g:ihracatKazanc');
+    add(['Genel Vergi Oranı', 'Genel Kurumlar Vergisi Oranı'], 'g:oranGenel');
+    add(['Üretim için Vergi Oranı', 'Üretim Kazancı için Vergi Oranı'], 'g:oranUretim');
+    add(['İhracat İçin Vergi Oranı', 'İhracat Kazancı için Vergi Oranı'], 'g:oranIhracat');
+    add(['Hesap Dönemi', 'Hesap Dönemi (yıl)'], 'g:hesapYili');
+    return m;
+  })();
+  const ROW_BY_KEY = {};
+  INPUT_ROWS.forEach((r) => { if (r.key) ROW_BY_KEY[r.key] = r; });
+
+  function parseLabeledGrid(grid) {
+    const best = { n: 0 };
+    const scan = (rows, orient) => {
+      for (let lc = 0; lc < 3; lc++) {
+        const n = rows.filter((r) => LABEL_MAP[normLabel(r[lc])]).length;
+        if (n > best.n) Object.assign(best, { n, lc, orient, rows });
+      }
+    };
+    scan(grid, 'satir');
+    const w = Math.max(...grid.map((r) => r.length));
+    const tr = [];
+    for (let c = 0; c < w; c++) tr.push(grid.map((r) => (r[c] === undefined ? '' : r[c])));
+    scan(tr, 'sutun');
+    if (best.n < 2) return null;
+    const res = { belge: [], genel: {}, adet: 0 };
+    best.rows.forEach((r) => {
+      const key = LABEL_MAP[normLabel(r[best.lc])];
+      if (!key) return;
+      const vals = r.slice(best.lc + 1);
+      if (key.startsWith('g:')) {
+        const v = vals.find((x) => String(x).trim() !== '');
+        if (v !== undefined) res.genel[key.slice(2)] = v;
+      } else {
+        res.belge.push({ key, vals });
+      }
+    });
+    res.belge.forEach((f) => { f.vals.forEach((v, j) => { if (String(v).trim() !== '') res.adet = Math.max(res.adet, j + 1); }); });
+    return res;
+  }
+
+  function tarihMetni(raw) {
+    const s = String(raw).trim();
+    if (!s) return '';
+    const d = parseDate(s);
+    if (!d) return s;
+    const y = Math.floor(d / 10000), mo = Math.floor(d / 100) % 100, g = d % 100;
+    return `${String(g).padStart(2, '0')}.${String(mo).padStart(2, '0')}.${y}`;
+  }
+  const TARIH_ALANLARI = ['baslangic', 'bitis', 'belgeTarihi', 'basvuruTarihi', 'kapamaBasvuruTarihi', 'kapamaTarihi'];
+
+  function applyImport(p, c0, yeniden) {
+    if (yeniden) state.belgeler = [];
+    const bas = yeniden ? 0 : c0;
+    let skipped = 0;
+    const gelenAlanlar = new Set(p.belge.map((f) => f.key));
+    for (let j = 0; j < p.adet; j++) {
+      const ci = bas + j;
+      while (ci >= state.belgeler.length) state.belgeler.push(newBelge());
+      const b = state.belgeler[ci];
+      const prev = { a: '', b: '', df: '' };
+      p.belge.forEach((f) => {
+        const raw = f.vals[j] === undefined ? '' : String(f.vals[j]).trim();
+        if (f.key.startsWith('#')) { const v = parseMoney(raw); if (v) prev[{ '#prevA': 'a', '#prevB': 'b', '#prevDF': 'df' }[f.key]] = v; return; }
+        const row = ROW_BY_KEY[f.key];
+        if (!row) return;
+        if (TARIH_ALANLARI.includes(f.key)) { b[f.key] = tarihMetni(raw); return; }
+        if (row.type === 'select') {
+          const t = raw.toLocaleLowerCase('tr-TR');
+          const m = row.options.map((o) => (Array.isArray(o) ? o : [o, o])).find(([v, l]) => v.toLocaleLowerCase('tr-TR') === t || l.toLocaleLowerCase('tr-TR') === t);
+          if (m) b[f.key] = m[0]; else if (raw) skipped++;
+          return;
+        }
+        if (row.type === 'check') { if (raw) b[f.key] = !/^(hayır|hayir|no|0|false)$/i.test(raw); return; }
+        const v = parseByType(row.type, raw);
+        if (v === null) skipped++; else if (raw !== '' || row.type === 'text') b[f.key] = v;
+      });
+      if (gelenAlanlar.has('#prevA') || gelenAlanlar.has('#prevB')) {
+        if (prev.a || prev.b || prev.df) { b.kullanimlar = [{ yil: '', a: prev.a, b: prev.b, df: prev.df }]; b.oncekiKullanimYok = false; }
+        else { b.kullanimlar = []; b.oncekiKullanimYok = true; }
+      }
+      // Durum gelmediyse: tamamlanma tarihi varsa kapalı ve işletme dönemi kabul edilir
+      if (!gelenAlanlar.has('durum') && b.bitis) { b.durum = DURUM.KAPALI; if (!gelenAlanlar.has('donem')) b.donem = DONEM.ISLETME; }
+    }
+    Object.keys(p.genel).forEach((k) => {
+      const f = genelFields.find((x) => x.key === k);
+      if (!f) return;
+      const v = parseGenel(f.t, p.genel[k]);
+      if (v !== null) state.genel[k] = v; else skipped++;
+    });
+    state.ornek = false;
+    if (/sentetik/i.test(state.donemAdi || '')) { state.donemAdi = ''; document.getElementById('donemAdi').value = ''; }
+    fillGenel(); renderMatrix(); recalc();
+    const eksik = ['durum', 'donem', 'vergiIndirim', 'belgeTarihi'].filter((k) => !gelenAlanlar.has(k)).map((k) => ROW_BY_KEY[k].label.toLocaleLowerCase('tr-TR'));
+    notify(`${p.adet} belge aktarıldı${Object.keys(p.genel).length ? ', genel bilgiler güncellendi' : ''}.` + (skipped ? ` ${skipped} hücre okunamadı.` : '') + (eksik.length ? ` Excel'de olmayan alanları kontrol edin: ${eksik.join(', ')}.` : ''));
+  }
+
+  function openImport() {
+    openModal('Excel\'den toplu aktar',
+      `<p>Excel'de alan adlarının bulunduğu sütunla birlikte bloğu seçip kopyalayın (Ctrl+C), aşağıdaki kutuya yapıştırın (Ctrl+V). Satırlar alan adına göre eşleşir, sıra önemli değildir. Her sütun bir belge olur. Ticari kâr, matrah gibi genel bilgiler de aynı yolla aktarılabilir.</p>
+       <textarea id="importArea" spellcheck="false" placeholder="Buraya yapıştırın"></textarea>
+       <p class="note" id="importInfo">Henüz veri yok.</p>
+       <label style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="importReplace" checked> Mevcut belgeleri silip yerine aktar</label>`,
+      [
+        { label: 'Vazgeç' },
+        {
+          label: 'Aktar', primary: true, onClick: () => {
+            const t = document.getElementById('importArea').value;
+            const grid = t.replace(/\r/g, '').replace(/\n+$/, '').split('\n').map((l) => l.split('\t'));
+            const p = parseLabeledGrid(grid);
+            if (!p) { notify('Alan adları tanınamadı. Bloğu alan adı sütunuyla birlikte kopyalayın.'); return false; }
+            applyImport(p, state.belgeler.length, document.getElementById('importReplace').checked);
+            setTab('belge');
+          },
+        },
+      ]);
+    const ta = document.getElementById('importArea');
+    ta.addEventListener('input', () => {
+      const grid = ta.value.replace(/\r/g, '').replace(/\n+$/, '').split('\n').map((l) => l.split('\t'));
+      const p = parseLabeledGrid(grid);
+      document.getElementById('importInfo').textContent = p
+        ? `${p.adet} belge, ${p.belge.length} belge alanı, ${Object.keys(p.genel).length} genel alan tanındı.`
+        : 'Alan adları tanınamadı.';
+    });
+  }
+  document.body.addEventListener('click', (e) => { if (e.target.closest('[data-import]')) openImport(); });
 
   // Önceki dönem kullanım tablosu (yıllar itibarıyla)
   function openKullanim(i) {
@@ -6795,12 +7174,14 @@ Yatırım dönemi matrahı  = kullanılabilir YKT ÷ (vergi indirim oranı × ka
     rd.readAsText(f, 'utf-8');
   });
 
+  document.getElementById('btnYazdir').addEventListener('click', () => { try { window.print(); } catch (e) { notify('Bu ortamda yazdırma desteklenmiyor.'); } });
+
   // Başlat: kayıtlı veri yoksa sentetik örnekle açılır
   const kayitli = load();
   if (!kayitli) state = sampleState();
   fullRender();
-  let startTab = 'nasil';
-  try { startTab = sessionStorage.getItem(STORE_KEY + '-tab') || (kayitli ? 'sonuc' : 'nasil'); } catch (e) { /* yok say */ }
+  let startTab = 'sonuc';
+  try { startTab = sessionStorage.getItem(STORE_KEY + '-tab') || 'sonuc'; } catch (e) { /* yok say */ }
   setTab(startTab);
 })();
 </script>
